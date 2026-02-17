@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="1" author="shurapilipuk@gmail.com">
+        <comment>Kitchen order items table</comment>
+        <createTable tableName="kitchen_order_items" schemaName="kitchens">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_kitchen_order_item_id"/>
+            </column>
+            <column name="kitchen_order_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_kitchen_order_items_kitchen_order_id" references="kitchens.kitchen_orders(id)"/>
+            </column>
+            <column name="item_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_cooked" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIMEZONE" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIMEZONE" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
