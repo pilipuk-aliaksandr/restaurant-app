@@ -7,7 +7,7 @@ servers:
   - url: 'http://localhost:8080'
 
 paths:
-  /v1/orders:
+  /v1/orders/new:
     post:
       tags:
         - Orders
@@ -43,8 +43,5 @@ components:
     OrderItemsDto:
       type: object
       properties:
-        orderId:
-          type: integer
-          format: int64
         itemName:
           type: string
