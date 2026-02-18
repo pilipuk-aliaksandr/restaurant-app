@@ -1,6 +1,7 @@
 package by.pilipuk.mapper;
 
 import by.pilipuk.dto.OrderItemsDto;
+import by.pilipuk.dto.OrderItemsWriteDto;
 import by.pilipuk.entity.OrderItem;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -11,5 +12,8 @@ public abstract class OrderItemMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "order", ignore = true)
     @Mapping(target = "name", source = "itemName")
-    public abstract OrderItem toEntity(OrderItemsDto orderItemDto);
+    public abstract OrderItem toEntity(OrderItemsWriteDto orderItemsWriteDto);
+
+    @Mapping(target = "itemName", source = "name")
+    public abstract OrderItemsDto toDto(OrderItem orderItem);
 }
