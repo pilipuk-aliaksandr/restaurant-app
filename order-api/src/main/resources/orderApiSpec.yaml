@@ -1,0 +1,50 @@
+openapi: 3.1.0
+info:
+  title: Order Service Api
+  description: Order Service Api
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+
+paths:
+  /v1/orders:
+    post:
+      tags:
+        - Orders
+      summary: Create a new customer order
+      description: Validates items, calculates total price, and initiates the order process.
+      operationId: createOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderDto'
+      responses:
+        '201':
+          description: Order created
+        '400':
+          description: Invalid input
+
+components:
+  schemas:
+
+    OrderDto:
+      type: object
+      properties:
+        tableNumber:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemsDto'
+
+    OrderItemsDto:
+      type: object
+      properties:
+        orderId:
+          type: integer
+          format: int64
+        itemName:
+          type: string
