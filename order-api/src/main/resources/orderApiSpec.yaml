@@ -23,6 +23,10 @@ paths:
       responses:
         '201':
           description: Order created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDto'
         '400':
           description: Invalid input
 

@@ -17,3 +17,17 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         jdbc:
           time_zone: UTC
+
+  kafka:
+    # Указываем адреса всех брокеров kafka
+    bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
+
+logging:
+  exception-conversion-word: clr
+  level:
+    root: INFO
+    by.pilipuk: INFO
+    org.springframework.kafka: INFO
+    org.apache.kafka: INFO
+  pattern:
+    console: "%clr(%d{HH:mm:ss.SSS}){faint} %clr(%5p) %clr([%15.15t]){magenta} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n"

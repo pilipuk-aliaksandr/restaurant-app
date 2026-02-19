@@ -18,9 +18,11 @@ public class OrderController implements OrdersApi {
     private final OrderService orderService;
 
     @Override
-    public ResponseEntity<Void> createOrder(OrderWriteDto orderWriteDto) {
+    public ResponseEntity<OrderDto> createOrder(OrderWriteDto orderWriteDto) {
         return orderService.createOrder(orderWriteDto);
     }
+
+
 
     @Override
     public ResponseEntity<OrderDto> getOrderById(Long id) {
