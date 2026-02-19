@@ -11,25 +11,72 @@ paths:
     post:
       tags:
         - Orders
-      summary: Create a new customer order
-      description: Validates items, calculates total price, and initiates the order process.
+      summary: Create a new order
+      description: Validates items and initiates the order process.
       operationId: createOrder
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OrderDto'
+              $ref: '#/components/schemas/OrderWriteDto'
       responses:
         '201':
           description: Order created
         '400':
           description: Invalid input
 
+  /v1/orders:
+    post:
+      tags:
+        - Orders
+      summary: Get all orders with filter criteria
+      description: Return orders details with filter criteria
+      operationId: getOrders
+      requestBody:
+        description: The search criteria
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequestDto'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderDto'
+
+  /v1/orders/{id}:
+    get:
+      tags:
+        - Orders
+      summary: Get order by id
+      description: Return order details by order id
+      operationId: getOrderById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDto'
+
+
 components:
   schemas:
 
-    OrderDto:
+    OrderWriteDto:
       type: object
       properties:
         tableNumber:
@@ -38,10 +85,66 @@ components:
         items:
           type: array
           items:
+            $ref: '#/components/schemas/OrderItemsWriteDto'
+
+    OrderItemsWriteDto:
+      type: object
+      properties:
+        itemName:
+          type: string
+
+    OrderDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        tableNumber:
+          type: integer
+          format: int64
+        status:
+          type: string
+        items:
+          type: array
+          items:
             $ref: '#/components/schemas/OrderItemsDto'
 
     OrderItemsDto:
       type: object
       properties:
+        id:
+          type: integer
+          format: int64
         itemName:
           type: string
+
+    OrderRequestDto:
+      description: Request dto provided in the request body to filter orders
+      type: object
+      properties:
+        id:
+          type: array
+          description: Filter by orderId
+          nullable: true
+          items:
+            type: integer
+            format: int64
+        tableNumber:
+          type: array
+          description: Filter by tableNumber
+          nullable: true
+          items:
+            type: integer
+            format: int32
+        status:
+          type: array
+          description: Filter by status
+          nullable: true
+          items:
+            type: string
+        items:
+          type: array
+          description: Filter by orderName
+          nullable: true
+          items:
+            type: string
