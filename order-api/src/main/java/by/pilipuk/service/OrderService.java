@@ -8,8 +8,6 @@ import by.pilipuk.mapper.OrderSpecificationMapper;
 import by.pilipuk.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,13 +24,16 @@ public class OrderService {
     private final OrderSpecificationMapper orderSpecificationMapper;
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
+    /* 1. Later need to separate createOrderEvent to Kafka and createOrder to DB within a transaction
+    so that createOrderEvent occurs only after the data is successfully written to the DB */
+    /* 2. Also later need to add ExceptionGlobalHandler and custom exception */
     @Transactional
-    public ResponseEntity<OrderDto> createOrder(OrderWriteDto orderWriteDto) {
+    public OrderDto createOrder(OrderWriteDto orderWriteDto) {
         var savedOrder = orderRepository.save(orderMapper.toEntity(orderWriteDto));
 
         var orderCreatedEvent = orderMapper.toOrderCreatedEvent(savedOrder);
 
-        kafkaTemplate.send("orders", orderCreatedEvent.getId(), orderCreatedEvent)
+        kafkaTemplate.send("orders", orderCreatedEvent.getId().toString(), orderCreatedEvent)
                 .whenComplete((result, ex) -> {
                     if (ex == null) {
                         log.info("Message sent to Kafka: {}", orderCreatedEvent);
@@ -40,15 +41,14 @@ public class OrderService {
                         log.error("Failed to send message to Kafka", ex);
                     }
                 });
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderMapper.toDto(savedOrder));
+        return orderMapper.toDto(savedOrder);
     }
 
-    public ResponseEntity<OrderDto> findOrderById(Long id) {
-        var orderDto = orderMapper.toDto(orderRepository.findByIdOrElseThrow(id));
-        return ResponseEntity.ok(orderDto);
+    public OrderDto findOrderById(Long id) {
+        return orderMapper.toDto(orderRepository.findByIdOrElseThrow(id));
     }
 
-    public ResponseEntity<List<OrderDto>> findOrders(OrderRequestDto orderRequestDto) {
+    public List<OrderDto> findOrders(OrderRequestDto orderRequestDto) {
         var spec = orderSpecificationMapper.orderSpecification(orderRequestDto);
 
         var ordersDtoList = orderRepository.findAll(spec).stream().
@@ -56,6 +56,6 @@ public class OrderService {
         if (CollectionUtils.isEmpty(ordersDtoList)) {
             throw new RuntimeException("NOT_FOUND_BY_FILTER");
         }
-        else return ResponseEntity.ok(ordersDtoList);
+        else return ordersDtoList;
     }
 }
