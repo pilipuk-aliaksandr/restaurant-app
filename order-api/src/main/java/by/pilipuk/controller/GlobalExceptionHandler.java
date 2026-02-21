@@ -19,6 +19,7 @@ public class GlobalExceptionHandler {
         CustomExceptionDto customExceptionDto = CustomExceptionDto.builder()
                 .code(ex.getCode())
                 .message(ex.getMessage())
+                .filterParams(ex.getFilterParams())
                 .time(LocalDateTime.now())
                 .build();
 

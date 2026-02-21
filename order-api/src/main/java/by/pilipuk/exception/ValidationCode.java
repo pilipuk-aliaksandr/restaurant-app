@@ -5,7 +5,8 @@ import org.slf4j.event.Level;
 
 @Getter
 public enum ValidationCode {
-    NOT_FOUND_BY_ID(Level.INFO, ", id: ");
+    NOT_FOUND_BY_ID(Level.INFO, ", id: "),
+    NOT_FOUND_BY_FILTER(Level.INFO, ", params: ");
 
     private final Level level;
     private final String key;

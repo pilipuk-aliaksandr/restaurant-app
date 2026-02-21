@@ -11,5 +11,6 @@ import java.time.LocalDateTime;
 public class CustomExceptionDto {
     private String code;
     private String message;
+    private String filterParams;
     private LocalDateTime time;
 }
