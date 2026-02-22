@@ -16,5 +16,6 @@ public abstract class KitchenOrderItemMapper {
     public abstract KitchenOrderItem toEntity(KitchenOrderItemsWriteDto kitchenOrderItemsWriteDto);
 
     @Mapping(target = "itemName", source = "name")
+    @Mapping(target = "kitchenOrderId", source = "kitchenOrder.id")
     public abstract KitchenOrderItemsDto toDto(KitchenOrderItem kitchenOrderItem);
 }

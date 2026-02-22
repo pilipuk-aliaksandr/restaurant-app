@@ -120,5 +120,5 @@ components:
           format: int64
         itemName:
           type: string
-        isCooked:
+        cooked:
           type: boolean
