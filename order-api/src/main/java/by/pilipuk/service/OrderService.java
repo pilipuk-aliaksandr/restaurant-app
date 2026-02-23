@@ -3,6 +3,7 @@ package by.pilipuk.service;
 import by.pilipuk.dto.OrderDto;
 import by.pilipuk.dto.OrderRequestDto;
 import by.pilipuk.dto.OrderWriteDto;
+import by.pilipuk.entity.Status;
 import by.pilipuk.exception.ValidationException;
 import by.pilipuk.mapper.OrderMapper;
 import by.pilipuk.mapper.OrderSpecificationMapper;
@@ -12,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.util.CollectionUtils;
 import java.util.List;
 
@@ -31,18 +34,26 @@ public class OrderService {
     so that createOrderEvent occurs only after the data is successfully written to the DB */
     @Transactional
     public OrderDto createOrder(OrderWriteDto orderWriteDto) {
-        var savedOrder = orderRepository.save(orderMapper.toEntity(orderWriteDto));
+        var mappedOrder = orderMapper.toEntity(orderWriteDto);
+        mappedOrder.setStatus(Status.SENT_TO_KITCHEN);
+        var savedOrder = orderRepository.save(mappedOrder);
 
         var orderCreatedEvent = orderMapper.toOrderCreatedEvent(savedOrder);
 
-        kafkaTemplate.send("orders", orderCreatedEvent.getId().toString(), orderCreatedEvent)
-                .whenComplete((result, ex) -> {
-                    if (ex == null) {
-                        log.info("Message sent to Kafka: {}", orderCreatedEvent);
-                    } else {
-                        log.error("Failed to send message to Kafka", ex);
-                    }
-                });
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            @Override
+            public void afterCommit() {
+                kafkaTemplate.send("orders", orderCreatedEvent)
+                        .whenComplete((result, ex) -> {
+                            if (ex == null) {
+                                log.info("Message sent to Kafka after commit: {}", orderCreatedEvent);
+                            } else {
+                                log.error("Failed to send message to Kafka", ex);
+                            }
+                        });
+            }
+        });
+
         return orderMapper.toDto(savedOrder);
     }
 
