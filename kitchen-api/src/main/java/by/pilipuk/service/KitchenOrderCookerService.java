@@ -3,11 +3,11 @@ package by.pilipuk.service;
 import by.pilipuk.entity.KitchenOrder;
 import by.pilipuk.entity.KitchenOrderItem;
 import by.pilipuk.entity.Status;
+import by.pilipuk.mapper.KitchenOrderMapper;
 import by.pilipuk.repository.KitchenOrderItemRepository;
 import by.pilipuk.repository.KitchenOrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +19,9 @@ import java.time.LocalDateTime;
 public class KitchenOrderCookerService {
 
     private final KitchenOrderRepository orderRepository;
+    private final KitchenOrderMapper kitchenOrderMapper;
     private final KitchenOrderItemRepository itemRepository;
-    private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final SendToKafkaService sendToKafkaService;
 
     @Scheduled(fixedDelay = 10000) // Every 10 seconds service cooks only one meal (item)
     @Transactional(value = "transactionManager")
@@ -47,7 +48,7 @@ public class KitchenOrderCookerService {
                         // Later need to move all logs logic with statusChanging in one LoggingService
                         log.info("Order: {} is cooked {}", kitchenOrder.getOrderId(), kitchenOrder.getCompletedAt());
 
-                        kafkaTemplate.send("ready_orders", kitchenOrder);
+                        sendToKafkaService.sendToKafka(kitchenOrderMapper.toOrderReadyEvent(kitchenOrder));
                     }
                 });
     }
