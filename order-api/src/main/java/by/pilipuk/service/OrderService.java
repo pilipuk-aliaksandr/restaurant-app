@@ -3,6 +3,7 @@ package by.pilipuk.service;
 import by.pilipuk.dto.OrderDto;
 import by.pilipuk.dto.OrderRequestDto;
 import by.pilipuk.dto.OrderWriteDto;
+import by.pilipuk.entity.Status;
 import by.pilipuk.exception.ValidationException;
 import by.pilipuk.mapper.OrderMapper;
 import by.pilipuk.mapper.OrderSpecificationMapper;
@@ -12,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.util.CollectionUtils;
 import java.util.List;
 
@@ -27,22 +30,16 @@ public class OrderService {
     private final OrderSpecificationMapper orderSpecificationMapper;
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
-    /* 1. Later need to separate createOrderEvent to Kafka and createOrder to DB within a transaction
-    so that createOrderEvent occurs only after the data is successfully written to the DB */
-    @Transactional
+    @Transactional(value = "transactionManager")
     public OrderDto createOrder(OrderWriteDto orderWriteDto) {
-        var savedOrder = orderRepository.save(orderMapper.toEntity(orderWriteDto));
+        var mappedOrder = orderMapper.toEntity(orderWriteDto);
+        mappedOrder.setStatus(Status.SENT_TO_KITCHEN);
+        var savedOrder = orderRepository.save(mappedOrder);
 
         var orderCreatedEvent = orderMapper.toOrderCreatedEvent(savedOrder);
 
-        kafkaTemplate.send("orders", orderCreatedEvent.getId().toString(), orderCreatedEvent)
-                .whenComplete((result, ex) -> {
-                    if (ex == null) {
-                        log.info("Message sent to Kafka: {}", orderCreatedEvent);
-                    } else {
-                        log.error("Failed to send message to Kafka", ex);
-                    }
-                });
+        kafkaTemplate.send("orders", orderCreatedEvent);
+
         return orderMapper.toDto(savedOrder);
     }
 

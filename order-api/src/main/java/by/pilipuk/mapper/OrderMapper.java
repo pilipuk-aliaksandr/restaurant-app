@@ -2,6 +2,7 @@ package by.pilipuk.mapper;
 
 import by.pilipuk.dto.OrderCreatedEvent;
 import by.pilipuk.dto.OrderDto;
+import by.pilipuk.dto.OrderReadyEvent;
 import by.pilipuk.dto.OrderWriteDto;
 import by.pilipuk.entity.Order;
 import by.pilipuk.entity.OrderItem;
@@ -39,16 +40,18 @@ public abstract class OrderMapper {
     public abstract OrderDto toDto(Order order);
 
     @Mapping(target = "items", ignore = true)
+    @Mapping(target = "orderId", source = "id")
     public abstract OrderCreatedEvent toOrderCreatedEvent(Order order);
 
     @AfterMapping
     protected void mapItemsToNames(Order order, @MappingTarget OrderCreatedEvent event) {
-        if (CollectionUtils.isEmpty(order.getItems())) {
+        if (!CollectionUtils.isEmpty(order.getItems())) {
             List<String> itemNames = order.getItems().stream()
                     .map(OrderItem::getName)
                     .toList();
             event.setItems(itemNames);
+        } else {
+            event.setItems(java.util.Collections.emptyList());
         }
     }
-
 }

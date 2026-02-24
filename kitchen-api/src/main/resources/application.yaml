@@ -1,3 +1,5 @@
+server:
+  port: 8081
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -21,6 +23,8 @@ spring:
   kafka:
     # Указываем адреса всех брокеров kafka
     bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
+    transactionIdPrefix: kitchen-${random.value}-
+    isolationLevelConfig: READ_COMMITTED
 
 logging:
   exception-conversion-word: clr
