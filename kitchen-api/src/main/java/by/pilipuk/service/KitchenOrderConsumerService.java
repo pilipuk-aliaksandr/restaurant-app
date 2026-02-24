@@ -1,6 +1,5 @@
 package by.pilipuk.service;
 
-import by.pilipuk.dto.KitchenOrderDto;
 import by.pilipuk.dto.OrderCreatedEvent;
 import by.pilipuk.entity.KitchenOrder;
 import by.pilipuk.entity.Status;
@@ -12,18 +11,16 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class KitchenOrderConsumer {
+public class KitchenOrderConsumerService {
 
     private final KitchenOrderRepository orderRepository;
     private final KitchenOrderMapper orderMapper;
 
     @KafkaListener(topics = "orders", groupId = "kitchen-group")
-    @Transactional
+    @Transactional("transactionManager")
     public void consume(OrderCreatedEvent event) {
         KitchenOrder kitchenOrder = orderMapper.toEntity(event);
         kitchenOrder.setStatus(Status.ACCEPTED);

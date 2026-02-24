@@ -30,9 +30,7 @@ public class OrderService {
     private final OrderSpecificationMapper orderSpecificationMapper;
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
-    /* 1. Later need to separate createOrderEvent to Kafka and createOrder to DB within a transaction
-    so that createOrderEvent occurs only after the data is successfully written to the DB */
-    @Transactional
+    @Transactional(value = "transactionManager")
     public OrderDto createOrder(OrderWriteDto orderWriteDto) {
         var mappedOrder = orderMapper.toEntity(orderWriteDto);
         mappedOrder.setStatus(Status.SENT_TO_KITCHEN);
@@ -40,19 +38,7 @@ public class OrderService {
 
         var orderCreatedEvent = orderMapper.toOrderCreatedEvent(savedOrder);
 
-        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
-            @Override
-            public void afterCommit() {
-                kafkaTemplate.send("orders", orderCreatedEvent)
-                        .whenComplete((result, ex) -> {
-                            if (ex == null) {
-                                log.info("Message sent to Kafka after commit: {}", orderCreatedEvent);
-                            } else {
-                                log.error("Failed to send message to Kafka", ex);
-                            }
-                        });
-            }
-        });
+        kafkaTemplate.send("orders", orderCreatedEvent);
 
         return orderMapper.toDto(savedOrder);
     }

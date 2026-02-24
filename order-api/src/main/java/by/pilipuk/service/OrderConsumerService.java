@@ -18,7 +18,7 @@ public class OrderConsumerService {
     private final OrderRepository orderRepository;
 
     @KafkaListener(topics = "ready_orders", groupId = "orders-group")
-    @Transactional
+    @Transactional("transactionManager")
     public void consume(OrderCreatedEvent event) {
         Order order = orderRepository.findByIdOrElseThrow(event.getOrderId());
         order.setStatus(Status.READY);
