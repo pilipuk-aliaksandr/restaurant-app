@@ -2,6 +2,7 @@ package by.pilipuk.controller;
 
 import by.pilipuk.api.KitchenOrdersApi;
 import by.pilipuk.dto.KitchenOrderDto;
+import by.pilipuk.dto.KitchenOrderRequestDto;
 import by.pilipuk.dto.KitchenOrderWriteDto;
 import by.pilipuk.service.KitchenOrderService;
 import lombok.RequiredArgsConstructor;
@@ -18,19 +19,12 @@ public class KitchenOrderController implements KitchenOrdersApi {
     private final KitchenOrderService kitchenOrderService;
 
     @Override
-    public ResponseEntity<KitchenOrderDto> createKitchenOrder(KitchenOrderWriteDto kitchenOrderWriteDto) {
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(kitchenOrderService.createKitchenOrder(kitchenOrderWriteDto));
-    }
-
-    @Override
     public ResponseEntity<KitchenOrderDto> getKitchenOrderById(Long id) {
         return ResponseEntity.ok(kitchenOrderService.findKitchenOrderById(id));
     }
 
     @Override
-    public ResponseEntity<List<KitchenOrderDto>> getKitchenOrders() {
-        return ResponseEntity.ok(kitchenOrderService.findKitchenOrders());
+    public ResponseEntity<List<KitchenOrderDto>> getKitchenOrders(KitchenOrderRequestDto kitchenOrderRequestDto) {
+        return ResponseEntity.ok(kitchenOrderService.findKitchenOrders(kitchenOrderRequestDto));
     }
 }

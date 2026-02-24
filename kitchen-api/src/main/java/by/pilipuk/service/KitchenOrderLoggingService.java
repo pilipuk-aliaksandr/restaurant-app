@@ -36,5 +36,4 @@ public class KitchenOrderLoggingService {
                 methodName,
                 Arrays.toString(args));
     }
-
 }

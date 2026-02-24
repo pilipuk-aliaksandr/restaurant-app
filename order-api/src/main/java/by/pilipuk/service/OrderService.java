@@ -1,6 +1,5 @@
 package by.pilipuk.service;
 
-import by.pilipuk.dto.OrderCreatedEvent;
 import by.pilipuk.dto.OrderDto;
 import by.pilipuk.dto.OrderRequestDto;
 import by.pilipuk.dto.OrderWriteDto;
@@ -11,11 +10,8 @@ import by.pilipuk.mapper.OrderSpecificationMapper;
 import by.pilipuk.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionSynchronization;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.util.CollectionUtils;
 import java.util.List;
 

@@ -7,38 +7,23 @@ servers:
   - url: 'http://localhost:8080'
 
 paths:
-  /v1/kitchen/orders/new:
+  /v1/kitchen/orders:
     post:
       tags:
         - KitchenOrders
-      summary: Create a new kitchen order
-      description: Validates items and initiates the kitchen order process.
-      operationId: createKitchenOrder
+      summary: Get all kitchen orders with filter criteria
+      description: Return all kitchen orders details with filter criteria
+      operationId: getKitchenOrders
       requestBody:
+        description: The search criteria
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/KitchenOrderWriteDto'
+              $ref: '#/components/schemas/KitchenOrderRequestDto'
       responses:
-        '201':
-          description: Kitchen Order created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/KitchenOrderDto'
-        '400':
-          description: Invalid input
-
-  /v1/kitchen/orders:
-    get:
-      tags:
-        - KitchenOrders
-      summary: Get all kitchen orders
-      operationId: getKitchenOrders
-      responses:
-        '200':
-          description: OK
+        200:
+          description: Success
           content:
             application/json:
               schema:
@@ -122,3 +107,34 @@ components:
           type: string
         cooked:
           type: boolean
+
+    KitchenOrderRequestDto:
+      description: Request dto provided in the request body to filter orders
+      type: object
+      properties:
+        id:
+          type: array
+          description: Filter by kitchenOrderId
+          nullable: true
+          items:
+            type: integer
+            format: int64
+        orderId:
+          type: array
+          description: Filter by orderId
+          nullable: true
+          items:
+            type: integer
+            format: int64
+        status:
+          type: array
+          description: Filter by status
+          nullable: true
+          items:
+            type: string
+        items:
+          type: array
+          description: Filter by itemName
+          nullable: true
+          items:
+            type: string
