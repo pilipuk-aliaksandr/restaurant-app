@@ -1,5 +1,6 @@
 package by.pilipuk.service;
 
+import by.pilipuk.dto.OrderCreatedEvent;
 import by.pilipuk.dto.OrderDto;
 import by.pilipuk.dto.OrderRequestDto;
 import by.pilipuk.dto.OrderWriteDto;
@@ -28,7 +29,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
     private final OrderSpecificationMapper orderSpecificationMapper;
-    private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final SendToKafkaService sendToKafkaService;
 
     @Transactional(value = "transactionManager")
     public OrderDto createOrder(OrderWriteDto orderWriteDto) {
@@ -38,7 +39,7 @@ public class OrderService {
 
         var orderCreatedEvent = orderMapper.toOrderCreatedEvent(savedOrder);
 
-        kafkaTemplate.send("orders", orderCreatedEvent);
+        sendToKafkaService.sendToKafka(orderCreatedEvent);
 
         return orderMapper.toDto(savedOrder);
     }
