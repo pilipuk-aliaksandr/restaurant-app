@@ -31,7 +31,6 @@ public class KitchenOrderCookerService {
                     item.setCooked(true);
                     itemRepository.save(item);
 
-                    // Later need to move all logs logic with statusChanging in one LoggingService
                     log.info("Item: {} for order {} is cooked {}", item.getName(), item.getKitchenOrder().getOrderId(), LocalDateTime.now());
 
                     KitchenOrder kitchenOrder = item.getKitchenOrder();
@@ -45,7 +44,6 @@ public class KitchenOrderCookerService {
                         kitchenOrder.setCompletedAt(LocalDateTime.now());
                         orderRepository.save(kitchenOrder);
 
-                        // Later need to move all logs logic with statusChanging in one LoggingService
                         log.info("Order: {} is cooked {}", kitchenOrder.getOrderId(), kitchenOrder.getCompletedAt());
 
                         sendToKafkaService.sendToKafka(kitchenOrderMapper.toOrderReadyEvent(kitchenOrder));
