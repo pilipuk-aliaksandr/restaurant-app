@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<databaseChangeLog-->
+<!--        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"-->
+<!--        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">-->
 
-    <changeSet id="1" author="shurapilipuk@gmail.com">
+<!--    <changeSet id="1" author="shurapilipuk@gmail.com">-->
 
-        <comment>Test data for kitchen orders</comment>
+<!--        <comment>Test data for kitchen orders</comment>-->
 
-        <sql>
-            INSERT INTO kitchens.kitchen_orders (order_id, status, active, created_at)
-            VALUES
-            (101, 'COOKING', true, now()),
-            (102, 'COOKING', true, now()),
-            (103, 'ACCEPTED', true, now()),
-            (104, 'COOKING', true, now()),
-            (105, 'COMPLETED', true, now());
-        </sql>
+<!--        <sql>-->
+<!--            INSERT INTO kitchens.kitchen_orders (order_id, status, active, created_at)-->
+<!--            VALUES-->
+<!--            (101, 'COOKING', true, now()),-->
+<!--            (102, 'COOKING', true, now()),-->
+<!--            (103, 'ACCEPTED', true, now()),-->
+<!--            (104, 'COOKING', true, now()),-->
+<!--            (105, 'COMPLETED', true, now());-->
+<!--        </sql>-->
 
-    </changeSet>
-</databaseChangeLog>
+<!--    </changeSet>-->
+<!--</databaseChangeLog>-->

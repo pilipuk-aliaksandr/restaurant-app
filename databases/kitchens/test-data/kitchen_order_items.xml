@@ -1,23 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<databaseChangeLog-->
+<!--        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"-->
+<!--        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">-->
 
-    <changeSet id="1" author="shurapilipuk@gmail.com">
+<!--    <changeSet id="1" author="shurapilipuk@gmail.com">-->
 
-        <comment>Test data for kitchen order items</comment>
+<!--        <comment>Test data for kitchen order items</comment>-->
 
-        <sql>
-            INSERT INTO kitchens.kitchen_order_items (kitchen_order_id, item_name, is_cooked, active, created_at)
-            VALUES
-            ((SELECT id FROM kitchens.kitchen_orders WHERE order_id = 101), 'Beef Steak', false, true, now()),
-            ((SELECT id FROM kitchens.kitchen_orders WHERE order_id = 101), 'Red Wine', true, true, now()),
-            ((SELECT id FROM kitchens.kitchen_orders WHERE order_id = 102), 'Mushroom Pizza', false, true, now()),
-            ((SELECT id FROM kitchens.kitchen_orders WHERE order_id = 102), 'Garlic Sauce', true, true, now()),
-            ((SELECT id FROM kitchens.kitchen_orders WHERE order_id = 103), 'Caesar Salad', false, true, now()),
-            ((SELECT id FROM kitchens.kitchen_orders WHERE order_id = 105), 'Tomato Soup', true, true, now());
-        </sql>
+<!--        <sql>-->
+<!--            INSERT INTO kitchens.kitchen_order_items (kitchen_order_id, item_name, is_cooked, active, created_at)-->
+<!--            VALUES-->
+<!--            ((SELECT id FROM kitchens.kitchen_orders WHERE order_id = 101), 'Beef Steak', false, true, now()),-->
+<!--            ((SELECT id FROM kitchens.kitchen_orders WHERE order_id = 101), 'Red Wine', true, true, now()),-->
+<!--            ((SELECT id FROM kitchens.kitchen_orders WHERE order_id = 102), 'Mushroom Pizza', false, true, now()),-->
+<!--            ((SELECT id FROM kitchens.kitchen_orders WHERE order_id = 102), 'Garlic Sauce', true, true, now()),-->
+<!--            ((SELECT id FROM kitchens.kitchen_orders WHERE order_id = 103), 'Caesar Salad', false, true, now()),-->
+<!--            ((SELECT id FROM kitchens.kitchen_orders WHERE order_id = 105), 'Tomato Soup', true, true, now());-->
+<!--        </sql>-->
 
-    </changeSet>
-</databaseChangeLog>
+<!--    </changeSet>-->
+<!--</databaseChangeLog>-->

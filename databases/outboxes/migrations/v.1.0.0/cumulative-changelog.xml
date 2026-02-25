@@ -4,8 +4,6 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
-    <include file="migrations/intermediate-changelog.xml" relativeToChangelogFile="true"/>
-<!--    <include file="test-data/orders.xml" relativeToChangelogFile="true"/>-->
-<!--    <include file="test-data/order_items.xml" relativeToChangelogFile="true"/>-->
+    <include file="create_outbox_events.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
