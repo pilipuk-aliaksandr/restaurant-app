@@ -18,17 +18,20 @@ public class OutboxSender {
     private final OutboxEventRepository outboxRepository;
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
+    // updatedAt - нужно включить аудирование через hibernate а не вручную этим управлять
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void sendSingleEvent(OutboxEvent event) {
         try {
             kafkaTemplate.send(event.getTopic(), event.getOrderId(), event.getEvent()).get();
 
+            //достаточно active - false выставить
             event.setKafkaMessageStatus(true);
             event.setUpdatedAt(LocalDateTime.now());
             outboxRepository.save(event);
 
             log.info("The {} event {} is sent successfully!", event.getTopic(), event.getOrderId());
         } catch (Exception e) {
+            //выбрасывай своё исключение, никакого рантайма быть не должно
             log.error("Failed to send event {}: {}", event.getOrderId(), e.getMessage());
             throw new RuntimeException(e);
         }

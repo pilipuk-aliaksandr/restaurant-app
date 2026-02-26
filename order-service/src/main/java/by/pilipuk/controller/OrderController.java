@@ -11,12 +11,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
+//TODO никаких респонс энтити в ответе - ПОЗОР - смотри конфиг старого проекта
 @RestController
 @RequiredArgsConstructor
 public class OrderController implements OrdersApi {
 
     private final OrderService orderService;
 
+    //TODO create
     @Override
     public ResponseEntity<OrderDto> createOrder(OrderWriteDto orderWriteDto) {
         return ResponseEntity
@@ -24,11 +26,13 @@ public class OrderController implements OrdersApi {
                 .body(orderService.createOrder(orderWriteDto));
     }
 
+    //TODO findById
     @Override
     public ResponseEntity<OrderDto> getOrderById(Long id) {
         return ResponseEntity.ok(orderService.findOrderById(id));
     }
 
+    //TODO findOrders
     @Override
     public ResponseEntity<List<OrderDto>> getOrders(OrderRequestDto orderRequestDto) {
         return ResponseEntity.ok(orderService.findOrders(orderRequestDto));

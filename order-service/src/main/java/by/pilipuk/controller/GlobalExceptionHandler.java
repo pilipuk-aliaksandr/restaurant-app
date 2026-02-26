@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.LocalDateTime;
 
+//TODO ПОЗОР
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -16,6 +17,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BaseApplicationException.class)
     public ResponseEntity<CustomExceptionDto> handleBaseApplicationException(BaseApplicationException ex) {
 
+        //TODO вынеси в маппер
         CustomExceptionDto customExceptionDto = CustomExceptionDto.builder()
                 .code(ex.getCode())
                 .message(ex.getMessage())
@@ -23,6 +25,7 @@ public class GlobalExceptionHandler {
                 .time(LocalDateTime.now())
                 .build();
 
+        //TODO логирование в зависимости от уровня в ex (смотри как сделано в старом проекта)
         log.info("[Repository]: {}.{}",
                 ex.getCode(),
                 ex.getMessage());

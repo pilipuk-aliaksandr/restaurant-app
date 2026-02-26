@@ -12,6 +12,15 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+//TODO
+/*
+//закинь его в common
+    by.pilipuk
+        model
+            entity
+                base
+ смотри структуру в дрогом комменту, на коммон модуль она также распростроняется
+ */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Getter

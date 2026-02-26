@@ -1,5 +1,7 @@
 package by.pilipuk.service;
-
+//сделай нормальный пакет by.pilipuk.kitchen
+// by.pilipuk.order
+// by.pilipuk.common
 import by.pilipuk.entity.KitchenOrder;
 import by.pilipuk.entity.KitchenOrderItem;
 import by.pilipuk.entity.Status;
