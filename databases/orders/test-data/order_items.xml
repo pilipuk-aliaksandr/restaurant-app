@@ -1,20 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<databaseChangeLog-->
+<!--        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"-->
+<!--        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">-->
 
-    <changeSet id="1" author="shurapilipuk@gmail.com">
-        <comment>Test data for order items</comment>
-        <sql>
-            INSERT INTO "orders".order_items (order_id, item_name, active, created_at)
-            SELECT
-            o.id as order_id,
-            (ARRAY['Burger', 'Pizza', 'Pasta', 'Salad', 'Coffee', 'Tea'])[floor(random() * 6 + 1)] as item_name,
-            true as active,
-            o.created_at as created_at
-            FROM "orders".orders o
-            CROSS JOIN generate_series(1, floor(random() * 2 + 2)::int);
-        </sql>
-    </changeSet>
-</databaseChangeLog>
+<!--    <changeSet id="1" author="shurapilipuk@gmail.com">-->
+<!--        <comment>Test data for order items</comment>-->
+<!--        <sql>-->
+<!--            INSERT INTO "orders".order_items (order_id, item_name, active, created_at)-->
+<!--            SELECT-->
+<!--            o.id as order_id,-->
+<!--            (ARRAY['Burger', 'Pizza', 'Pasta', 'Salad', 'Coffee', 'Tea'])[floor(random() * 6 + 1)] as item_name,-->
+<!--            true as active,-->
+<!--            o.created_at as created_at-->
+<!--            FROM "orders".orders o-->
+<!--            CROSS JOIN generate_series(1, floor(random() * 2 + 2)::int);-->
+<!--        </sql>-->
+<!--    </changeSet>-->
+<!--</databaseChangeLog>-->

@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<databaseChangeLog-->
+<!--        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"-->
+<!--        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">-->
 
-    <changeSet id="1" author="shurapilipuk@gmail.com">
-        <comment>Test data for orders</comment>
-        <sql>
-            INSERT INTO "orders".orders (table_number, status, active, created_at)
-            SELECT
-            floor(random() * 20 + 1)::int as table_number,
-            (ARRAY['PENDING', 'SENT_TO_KITCHEN', 'READY'])[floor(random() * 3 + 1)] as status,
-            true as active,
-            NOW() AT TIME ZONE 'utc' as created_at
-            FROM generate_series(1, 10) s;
-        </sql>
-    </changeSet>
-</databaseChangeLog>
+<!--    <changeSet id="1" author="shurapilipuk@gmail.com">-->
+<!--        <comment>Test data for orders</comment>-->
+<!--        <sql>-->
+<!--            INSERT INTO "orders".orders (table_number, status, active, created_at)-->
+<!--            SELECT-->
+<!--            floor(random() * 20 + 1)::int as table_number,-->
+<!--            (ARRAY['PENDING', 'SENT_TO_KITCHEN', 'READY'])[floor(random() * 3 + 1)] as status,-->
+<!--            true as active,-->
+<!--            NOW() AT TIME ZONE 'utc' as created_at-->
+<!--            FROM generate_series(1, 10) s;-->
+<!--        </sql>-->
+<!--    </changeSet>-->
+<!--</databaseChangeLog>-->

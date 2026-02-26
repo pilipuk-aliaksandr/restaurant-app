@@ -54,6 +54,26 @@ services:
         --defaultSchemaName=kitchens
       update
 
+  liquibase-outbox:
+    image: liquibase/liquibase:4.6.2
+    container_name: liquibase-outbox
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./databases/outboxes:/databases/outboxes
+    command: >
+      liquibase
+        --logLevel=INFO
+        --driver=org.postgresql.Driver
+        --classpath="/databases/outboxes/"
+        --changeLogFile="changelog.xml"
+        --url="jdbc:postgresql://postgres:5432/postgres"
+        --username=postgres
+        --password=postgres
+        --defaultSchemaName=common_outbox
+      update
+
   kafka-1:
     image: apache/kafka:4.0.1
     container_name: kafka-1

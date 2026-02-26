@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="1" author="shurapilipuk@gmail.com">
+        <comment>Outbox table for reliable Kafka messaging</comment>
+        <createTable tableName="outbox_events" schemaName="common_outbox">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" primaryKeyName="pk_outbox_events_id"/>
+            </column>
+            <column name="order_id" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="topic" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="event" type="JSONB"> <constraints nullable="false"/>
+            </column>
+            <column name="kafka_message_status" type="BOOLEAN" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIMEZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIMEZONE"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
