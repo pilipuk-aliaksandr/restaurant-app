@@ -6,6 +6,7 @@
 
     <changeSet id="1" author="shurapilipuk@gmail.com">
         <comment>Kitchen order items table</comment>
+<!--        у тебя схема нейм kitchens зачем в каждой таблицы ты ебашишь это? просто сделай order_items, orders-->
         <createTable tableName="kitchen_order_items" schemaName="kitchens">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="pk_kitchen_order_item_id"/>

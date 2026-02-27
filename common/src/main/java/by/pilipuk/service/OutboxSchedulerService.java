@@ -12,6 +12,7 @@ public class OutboxSchedulerService {
     private final OutboxEventRepository outboxRepository;
     private final OutboxSender outboxSender;
 
+    //тебе надо селектить запись через FOR UPDATE SKIPPED LOCKED и по одной и после отправки деактивировать запись!
     @Scheduled(fixedDelay = 5000)
     public void processOutbox() {
         var events = outboxRepository.findAllByKafkaMessageStatusFalse();

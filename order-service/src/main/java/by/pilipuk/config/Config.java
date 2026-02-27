@@ -20,6 +20,8 @@ import java.util.Map;
 @Configuration
 public class Config {
 
+    //TODO это всё можно в application.yml убрать --------------------------------------------------------------------------------------------------------
+
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
 
@@ -55,6 +57,7 @@ public class Config {
         configProps.put(JacksonJsonSerializer.ADD_TYPE_INFO_HEADERS, false);
         return new DefaultKafkaProducerFactory<>(configProps);
     }
+    //--------------------------------------------------------------------------------------------------------
 
     @Bean
     public KafkaTemplate<String, Object> kafkaTemplate() {

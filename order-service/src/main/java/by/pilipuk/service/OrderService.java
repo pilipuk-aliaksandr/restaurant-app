@@ -28,6 +28,11 @@ public class OrderService {
     private final OutboxEventRepository outboxEventRepository;
     private final ObjectMapper objectMapper;
 
+    /*
+    зачем ставить статус CREATED и в той же транзакции заменять его на PENDING?
+    PENDING - удалить
+    зачем тебе jsonEvent весь объект ордера? в данном случае тебе достаточно
+     */
     @Transactional
     public OrderDto createOrder(OrderWriteDto orderWriteDto) {
         var mappedOrder = orderMapper.toEntity(orderWriteDto);
@@ -55,6 +60,8 @@ public class OrderService {
 
         var ordersDtoList = orderRepository.findAll(spec).stream()
                 .map(orderMapper::toDto).toList();
+
+        //TODO сомнительная валидация - удалить
         if (CollectionUtils.isEmpty(ordersDtoList)) {
             throw ValidationException.create(NOT_FOUND_BY_FILTER, orderRequestDto.toString().substring(22));
         }

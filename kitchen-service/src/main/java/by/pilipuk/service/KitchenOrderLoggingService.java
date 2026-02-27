@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 import java.util.Arrays;
 
+//удали это, здесь не нужно, лучше доп заданием придумаем что-то полезное, а не это
 @Aspect
 @Component
 @Slf4j
