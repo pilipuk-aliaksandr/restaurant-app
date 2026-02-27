@@ -7,12 +7,12 @@
     <changeSet id="1" author="shurapilipuk@gmail.com">
         <comment>Kitchen order items table</comment>
 <!--        у тебя схема нейм kitchens зачем в каждой таблицы ты ебашишь это? просто сделай order_items, orders-->
-        <createTable tableName="kitchen_order_items" schemaName="kitchens">
+        <createTable tableName="order_items" schemaName="kitchens">
             <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="pk_kitchen_order_item_id"/>
+                <constraints primaryKey="true" primaryKeyName="pk_order_item_id"/>
             </column>
-            <column name="kitchen_order_id" type="BIGINT">
-                <constraints nullable="false" foreignKeyName="fk_kitchen_order_items_kitchen_order_id" references="kitchens.kitchen_orders(id)"/>
+            <column name="order_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_order_items_order_id" references="kitchens.orders(id)"/>
             </column>
             <column name="item_name" type="TEXT">
                 <constraints nullable="false"/>
@@ -23,11 +23,10 @@
             <column name="active" type="BOOLEAN" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_at" type="TIMESTAMP WITHOUT TIMEZONE" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+            <column name="created_at" type="TIMESTAMP WITHOUT TIMEZONE">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated_at" type="TIMESTAMP WITHOUT TIMEZONE" defaultValueComputed="(now() AT TIME ZONE 'utc')">
-                <constraints nullable="false"/>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIMEZONE">
             </column>
         </createTable>
     </changeSet>

@@ -13,7 +13,7 @@ paths:
         - Orders
       summary: Create a new order
       description: Validates items and initiates the order process.
-      operationId: createOrder
+      operationId: create
       requestBody:
         required: true
         content:
@@ -36,7 +36,7 @@ paths:
         - Orders
       summary: Get all orders with filter criteria
       description: Return orders details with filter criteria
-      operationId: getOrders
+      operationId: findOrders
       requestBody:
         description: The search criteria
         required: true
@@ -60,7 +60,7 @@ paths:
         - Orders
       summary: Get order by id
       description: Return order details by order id
-      operationId: getOrderById
+      operationId: findById
       parameters:
         - name: id
           in: path

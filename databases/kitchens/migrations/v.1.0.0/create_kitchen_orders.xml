@@ -6,9 +6,9 @@
 <!-- дефолты не нужны defaultValueComputed="(now() AT TIME ZONE 'utc')"-->
     <changeSet id="1" author="shurapilipuk@gmail.com">
         <comment>Kitchen orders table</comment>
-        <createTable tableName="kitchen_orders" schemaName="kitchens">
+        <createTable tableName="orders" schemaName="kitchens">
             <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="pk_kitchen_order_id"/>
+                <constraints primaryKey="true" primaryKeyName="pk_order_id"/>
             </column>
             <column name="order_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -19,13 +19,11 @@
             <column name="active" type="BOOLEAN" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_at" type="TIMESTAMP WITHOUT TIMEZONE" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+            <column name="created_at" type="TIMESTAMP WITHOUT TIMEZONE">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated_at" type="TIMESTAMP WITHOUT TIMEZONE" defaultValueComputed="(now() AT TIME ZONE 'utc')">
-                <constraints nullable="false"/>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIMEZONE">
             </column>
-            <column name="completed_at" type="TIMESTAMP WITHOUT TIMEZONE"/>
         </createTable>
     </changeSet>
 

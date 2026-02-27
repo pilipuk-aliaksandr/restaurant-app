@@ -10,17 +10,17 @@ paths:
   /v1/kitchen/orders:
     post:
       tags:
-        - KitchenOrders
+        - Kitchen
       summary: Get all kitchen orders with filter criteria
       description: Return all kitchen orders details with filter criteria
-      operationId: getKitchenOrders
+      operationId: findKitchens
       requestBody:
         description: The search criteria
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/KitchenOrderRequestDto'
+              $ref: '#/components/schemas/KitchenRequestDto'
       responses:
         200:
           description: Success
@@ -29,14 +29,14 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/KitchenOrderDto'
+                  $ref: '#/components/schemas/KitchenDto'
 
   /v1/kitchen/orders/{id}:
     get:
       tags:
-        - KitchenOrders
+        - Kitchen
       summary: Get kitchen order by id
-      operationId: getKitchenOrderById
+      operationId: findById
       parameters:
         - name: id
           in: path
@@ -50,14 +50,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/KitchenOrderDto'
+                $ref: '#/components/schemas/KitchenDto'
         '404':
           description: Kitchen Order not found
 
 components:
   schemas:
 
-    KitchenOrderWriteDto:
+    KitchenWriteDto:
       type: object
       properties:
         orderId:
@@ -65,19 +65,19 @@ components:
           format: int64
         status:
           type: string
-          enum: [ ACCEPTED, PENDING, COOKING, COMPLETED ]
+          enum: [ ACCEPTED, COOKING, COMPLETED ]
         items:
           type: array
           items:
-            $ref: '#/components/schemas/KitchenOrderItemsWriteDto'
+            $ref: '#/components/schemas/KitchenItemsWriteDto'
 
-    KitchenOrderItemsWriteDto:
+    KitchenItemsWriteDto:
       type: object
       properties:
         itemName:
           type: string
 
-    KitchenOrderDto:
+    KitchenDto:
       type: object
       properties:
         id:
@@ -88,19 +88,19 @@ components:
           format: int64
         status:
           type: string
-          enum: [ ACCEPTED, PENDING, COOKING, COMPLETED ]
+          enum: [ ACCEPTED, COOKING, COMPLETED ]
         items:
           type: array
           items:
-            $ref: '#/components/schemas/KitchenOrderItemsDto'
+            $ref: '#/components/schemas/KitchenItemsDto'
 
-    KitchenOrderItemsDto:
+    KitchenItemsDto:
       type: object
       properties:
         id:
           type: integer
           format: int64
-        kitchenOrderId:
+        kitchenId:
           type: integer
           format: int64
         itemName:
@@ -108,7 +108,7 @@ components:
         cooked:
           type: boolean
 
-    KitchenOrderRequestDto:
+    KitchenRequestDto:
       description: Request dto provided in the request body to filter orders
       type: object
       properties:
