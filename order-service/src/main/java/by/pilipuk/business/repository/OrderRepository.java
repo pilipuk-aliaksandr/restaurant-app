@@ -1,10 +1,10 @@
 package by.pilipuk.business.repository;
 
 import by.pilipuk.model.entity.Order;
-import by.pilipuk.core.exception.ValidationException;
+import by.pilipuk.core.exception.validationException.ValidationException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import static by.pilipuk.core.exception.ValidationCode.NOT_FOUND_BY_ID;
+import static by.pilipuk.core.exception.validationException.ValidationCode.NOT_FOUND_BY_ID;
 
 public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecificationExecutor<Order> {
 

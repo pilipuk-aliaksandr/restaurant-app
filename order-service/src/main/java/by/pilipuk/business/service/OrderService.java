@@ -6,7 +6,7 @@ import by.pilipuk.model.entity.Status;
 import by.pilipuk.business.mapper.OrderMapper;
 import by.pilipuk.business.mapper.OrderSpecificationMapper;
 import by.pilipuk.model.dto.OrderReadyEvent;
-import by.pilipuk.core.exception.ValidationException;
+import by.pilipuk.core.exception.validationException.ValidationException;
 import by.pilipuk.business.repository.OrderRepository;
 import by.pilipuk.business.repository.OutboxEventRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import tools.jackson.databind.ObjectMapper;
 import java.util.List;
-
-import static by.pilipuk.core.exception.ValidationCode.NOT_FOUND_BY_FILTER;
+import static by.pilipuk.core.exception.validationException.ValidationCode.NOT_FOUND_BY_FILTER;
 
 @Service
 @RequiredArgsConstructor
@@ -64,7 +63,7 @@ public class OrderService {
 
         //TODO сомнительная валидация - удалить
         if (CollectionUtils.isEmpty(ordersDtoList)) {
-            throw ValidationException.create(NOT_FOUND_BY_FILTER, orderRequestDto.toString().substring(22));
+            throw ValidationException.create(NOT_FOUND_BY_FILTER, orderRequestDto.toString());
         }
         else return ordersDtoList;
     }

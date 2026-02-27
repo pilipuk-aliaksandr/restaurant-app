@@ -1,14 +1,14 @@
 package by.pilipuk.business.service;
 
 import by.pilipuk.business.repository.OutboxEventRepository;
-import by.pilipuk.core.exception.ProcessingException;
+import by.pilipuk.core.exception.processingException.ProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import static by.pilipuk.core.exception.ProcessingCode.ERROR_OUTBOX_PROCESSING;
+import static by.pilipuk.core.exception.processingException.ProcessingCode.ERROR_OUTBOX_PROCESSING;
 
 @Service
 @RequiredArgsConstructor

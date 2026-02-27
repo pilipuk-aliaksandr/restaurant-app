@@ -1,7 +1,7 @@
 package by.pilipuk.business.service;
 
 import by.pilipuk.business.mapper.KitchenMapper;
-import by.pilipuk.core.exception.ValidationException;
+import by.pilipuk.core.exception.validationException.ValidationException;
 import by.pilipuk.dto.KitchenDto;
 import by.pilipuk.dto.KitchenRequestDto;
 import by.pilipuk.model.dto.OrderCreatedEvent;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import java.util.List;
-import static by.pilipuk.core.exception.ValidationCode.NOT_FOUND_BY_FILTER;
+import static by.pilipuk.core.exception.validationException.ValidationCode.NOT_FOUND_BY_FILTER;
 
 @Service
 @RequiredArgsConstructor

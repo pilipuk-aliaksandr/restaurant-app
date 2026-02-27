@@ -1,4 +1,4 @@
-package by.pilipuk.core.exception;
+package by.pilipuk.core.exception.processingException;
 
 import by.pilipuk.core.exception.base.BaseApplicationException;
 

@@ -12,13 +12,12 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.util.CollectionUtils;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper(
         componentModel = "spring",
         uses = {OrderItemMapper.class},
-        imports = {LocalDateTime.class, Status.class}
+        imports = {Status.class}
 )
 public abstract class OrderMapper {
 

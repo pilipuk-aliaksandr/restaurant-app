@@ -16,5 +16,4 @@ public class OrderListener {
     public void listen(OrderReadyEvent orderReadyEvent) {
         orderService.acceptCompletedOrdersFromKafka(orderReadyEvent);
     }
-
 }

@@ -1,4 +1,4 @@
-package by.pilipuk.core.exception;
+package by.pilipuk.core.exception.validationException;
 
 import lombok.Getter;
 import org.slf4j.event.Level;

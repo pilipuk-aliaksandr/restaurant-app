@@ -1,5 +1,4 @@
-package by.pilipuk.core.exception;
-
+package by.pilipuk.core.exception.validationException;
 
 import by.pilipuk.core.exception.base.BaseApplicationException;
 
@@ -22,5 +21,4 @@ public class ValidationException extends BaseApplicationException {
     public static ValidationException create(ValidationCode code, String requestParams) {
         return new ValidationException(code, requestParams);
     }
-
 }
