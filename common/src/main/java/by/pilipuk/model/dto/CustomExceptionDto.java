@@ -1,16 +1,12 @@
 package by.pilipuk.model.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.util.List;
 
-@Getter
-@Setter
-@Builder
-public class CustomExceptionDto {
-    private String code;
-    private String message;
-    private String filterParams;
-    private LocalDateTime time;
+public record CustomExceptionDto(
+        int status,
+        String url,
+        Instant timestamp,
+        List<ExceptionContext> details
+) {
 }

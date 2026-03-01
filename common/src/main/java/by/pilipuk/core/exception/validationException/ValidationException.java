@@ -1,24 +1,39 @@
 package by.pilipuk.core.exception.validationException;
 
 import by.pilipuk.core.exception.base.BaseApplicationException;
+import by.pilipuk.core.exception.base.BaseValidationException;
+import by.pilipuk.model.dto.ExceptionContext;
+import org.slf4j.event.Level;
 
-public class ValidationException extends BaseApplicationException {
+import java.util.List;
 
-    private static final String CODE = "APPLICATION_VALIDATION_EXCEPTION";
+public class ValidationException extends BaseValidationException {
 
-    private ValidationException(ValidationCode code, Long id) {
-        super(code.name() + code.getKey() + id, "id: " + id, CODE, code.getLevel());
+    private ValidationException(Level logLevel, ExceptionContext exceptionContext) {
+        super(logLevel, exceptionContext);
     }
 
-    private ValidationException(ValidationCode code, String requestParams) {
-        super(code.name(), requestParams, CODE, code.getLevel());
+    public static ValidationException create(ValidationCode code) {
+        return new ValidationException(
+                code.getLevel(),
+                ExceptionContext.create(code.name()));
     }
 
-    public static ValidationException create(ValidationCode code, Long id) {
-        return new ValidationException(code, id);
+    public static ValidationException create(Level logLevel, ExceptionContext exceptionContext) {
+        return new ValidationException(logLevel, exceptionContext);
     }
 
-    public static ValidationException create(ValidationCode code, String requestParams) {
-        return new ValidationException(code, requestParams);
+    public static ValidationException create(ValidationCode code, Object param) {
+        return new ValidationException(
+                code.getLevel(),
+                ExceptionContext.create(code.name()).add(code.getKey(), param)
+        );
+    }
+
+    public static ValidationException create(ValidationCode code, List<String> params) {
+        return new ValidationException(
+                code.getLevel(),
+                ExceptionContext.create(code.name()).add(code.getKey(), String.join(", ", params))
+        );
     }
 }

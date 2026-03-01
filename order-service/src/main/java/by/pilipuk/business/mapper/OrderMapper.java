@@ -66,8 +66,9 @@ public abstract class OrderMapper {
 
     всё остальное как будто бы мусор
      */
-    @Mapping(target = "keyOrderId", source = "order.id")
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "topic", constant = "orders")
+    @Mapping(target = "keyOrderId", source = "order.id")
     @Mapping(target = "payload", source = "jsonEvent")
     public abstract OutboxEvent toOutboxEvent(Order order, String jsonEvent);
 }
