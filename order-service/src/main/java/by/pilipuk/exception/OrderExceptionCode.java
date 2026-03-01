@@ -1,17 +1,17 @@
-package by.pilipuk.core.exception.validationException;
+package by.pilipuk.exception;
 
 import lombok.Getter;
 import org.slf4j.event.Level;
 
 @Getter
-public enum ValidationCode {
+public enum OrderExceptionCode {
     NOT_FOUND_BY_ID(Level.INFO, ", id: "),
     NOT_FOUND_BY_FILTER(Level.INFO, ", params: ");
 
     private final Level level;
     private final String key;
 
-    ValidationCode(Level level, String key) {
+    OrderExceptionCode(Level level, String key) {
         this.level = level;
         this.key = key;
     }

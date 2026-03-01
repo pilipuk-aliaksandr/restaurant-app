@@ -3,7 +3,7 @@ package by.pilipuk.model.dto;
 import java.time.Instant;
 import java.util.List;
 
-public record CustomExceptionDto(
+public record ApplicationExceptionDto(
         int status,
         String url,
         Instant timestamp,
