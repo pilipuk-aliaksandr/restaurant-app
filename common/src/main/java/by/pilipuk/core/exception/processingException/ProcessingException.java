@@ -1,18 +1,30 @@
 package by.pilipuk.core.exception.processingException;
 
-import by.pilipuk.core.exception.base.BaseApplicationException;
+import by.pilipuk.core.exception.base.BaseProcessingException;
+import by.pilipuk.model.dto.ExceptionContext;
+import org.slf4j.event.Level;
+import static by.pilipuk.core.exception.processingException.ProcessingCode.FAILED_PROCESSING;
 
-public class ProcessingException extends BaseApplicationException {
+public class ProcessingException extends BaseProcessingException {
 
-    private static final String CODE = "APPLICATION_PROCESSING_EXCEPTION";
-
-    private ProcessingException(ProcessingCode code, Long id) {
-        super(code.name() + code.getKey() + id, "id: " + id, CODE, code.getLevel());
+    private ProcessingException(Level logLevel, ExceptionContext exceptionContext, Throwable cause) {
+        super(logLevel, exceptionContext, cause);
     }
 
-    public static ProcessingException create(ProcessingCode code, Long id) {
-        return new ProcessingException(code, id);
+    public static ProcessingException create(Throwable cause) {
+        return new ProcessingException(
+                FAILED_PROCESSING.getLevel(),
+                ExceptionContext.create(FAILED_PROCESSING.name()),
+                cause
+        );
     }
 
+    public static ProcessingException create(ProcessingCode code, Throwable cause) {
+        return new ProcessingException(
+                code.getLevel(),
+                ExceptionContext.create(code.name()),
+                cause
+        );
+    }
 
 }
