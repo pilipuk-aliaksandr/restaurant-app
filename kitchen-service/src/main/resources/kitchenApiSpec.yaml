@@ -59,6 +59,10 @@ components:
 
     KitchenWriteDto:
       type: object
+      required:
+        - orderId
+        - status
+        - items
       properties:
         orderId:
           type: integer
@@ -73,6 +77,8 @@ components:
 
     KitchenItemsWriteDto:
       type: object
+      required:
+        - itemName
       properties:
         itemName:
           type: string

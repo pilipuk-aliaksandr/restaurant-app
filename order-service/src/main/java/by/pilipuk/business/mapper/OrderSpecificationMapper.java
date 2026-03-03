@@ -51,7 +51,7 @@ public class OrderSpecificationMapper {
                 return criteriaBuilder.conjunction();
             }
             else if (statuses.size() == 1) {
-                return criteriaBuilder.equal(root.get("status"), statuses.getFirst());
+                return criteriaBuilder.like(root.get("status"), "%" + statuses.getFirst() + "%");
             }
             else return root.get("status").in(statuses);
         };
@@ -61,6 +61,9 @@ public class OrderSpecificationMapper {
         return (root, query, criteriaBuilder) -> {
             if (CollectionUtils.isEmpty(items)) {
                 return criteriaBuilder.conjunction();
+            }
+            else if (items.size() == 1) {
+                return criteriaBuilder.like(root.join("items").get("name"), "%" + items.getFirst() + "%");
             }
             else return root.join("items").get("name").in(items);
         };

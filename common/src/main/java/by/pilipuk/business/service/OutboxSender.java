@@ -18,7 +18,6 @@ public class OutboxSender {
     private final OutboxEventRepository outboxRepository;
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
-    // updatedAt - нужно включить аудирование через hibernate а не вручную этим управлять
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public boolean sendSingleEvent() {
         return outboxRepository.findNextForProcessing()
