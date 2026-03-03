@@ -52,20 +52,6 @@ public abstract class OrderMapper {
         }
     }
 
-    //toDO зачем id - UUID?
-    //UUID мне сказала делать GPT
-    /*
-    в аутбокс таблице достаточно оставить:
-        id
-        event_type TEXT - (ORDER_CREATED, ORDER_READY)
-        key - то что пойдёт как ключ при отправке в топик
-        message - payload
-        active
-        created_at
-        updated_at
-
-    всё остальное как будто бы мусор
-     */
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "topic", constant = "orders")
     @Mapping(target = "keyOrderId", source = "order.id")

@@ -82,6 +82,9 @@ components:
 
     OrderWriteDto:
       type: object
+      required:
+        - tableNumber
+        - items
       properties:
         tableNumber:
           type: integer
@@ -93,6 +96,8 @@ components:
 
     OrderItemsWriteDto:
       type: object
+      required:
+        - itemName
       properties:
         itemName:
           type: string
