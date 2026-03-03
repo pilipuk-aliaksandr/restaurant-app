@@ -8,7 +8,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import static by.pilipuk.core.exception.base.ApplicationExceptionCode.FAILED_MESSAGING_TO_KAFKA;
+import static by.pilipuk.core.exception.ApplicationExceptionCode.FAILED_MESSAGING_TO_KAFKA;
 
 @Service
 @RequiredArgsConstructor

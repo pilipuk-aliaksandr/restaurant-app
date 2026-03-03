@@ -1,7 +1,7 @@
 package by.pilipuk.entrypoint;
 
 import by.pilipuk.business.mapper.ApplicationExceptionMapper;
-import by.pilipuk.core.exception.base.BaseApplicationException;
+import by.pilipuk.core.exception.BaseApplicationException;
 import by.pilipuk.model.dto.ExceptionDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
