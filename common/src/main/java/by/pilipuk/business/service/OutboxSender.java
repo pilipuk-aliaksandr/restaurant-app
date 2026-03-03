@@ -1,14 +1,14 @@
 package by.pilipuk.business.service;
 
 import by.pilipuk.business.repository.OutboxEventRepository;
-import by.pilipuk.core.exception.base.OutboxException;
+import by.pilipuk.core.exception.base.ApplicationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import static by.pilipuk.core.exception.base.OutboxExceptionCode.FAILED_MESSAGING_TO_KAFKA;
+import static by.pilipuk.core.exception.base.ApplicationExceptionCode.FAILED_MESSAGING_TO_KAFKA;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +31,7 @@ public class OutboxSender {
 
                     } catch (Exception e) {
                         log.error("Failed to send event {}: {}", event.getKeyOrderId(), e.getMessage());
-                        throw OutboxException.create(FAILED_MESSAGING_TO_KAFKA, e);
+                        throw ApplicationException.create(FAILED_MESSAGING_TO_KAFKA, e);
                     }
                 }).orElse(false);
     }

@@ -42,5 +42,4 @@ public class Json {
     public static ObjectMapper mapper() {
         return MAPPER;
     }
-
 }
