@@ -18,3 +18,30 @@ spring:
               uri: http://localhost:8081
               predicates:
                 - Path=/v1/kitchen/**
+
+  security:
+    jwt:
+      secret: c2R2a2JrYWhqZHZjYmpnYXN2c2pjaHZqYXNodmJjYmpoc2FidmNHVkhHVlNKREhWQkJKR1ZKU0RTQ3NkdmFkdnNkdg==
+      access: 1
+      refresh: 30
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+        use_sql_comments: true
+        default_schema: users
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        type:
+          json_format_mapper: jackson
+        jdbc:
+          time_zone: UTC

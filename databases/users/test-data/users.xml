@@ -1,0 +1,18 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<databaseChangeLog-->
+<!--        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"-->
+<!--        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">-->
+
+<!--    <changeSet id="test_data_user" author="shurapilipuk@gmail.com">-->
+
+<!--        <comment>Test data for user schema</comment>-->
+
+<!--        <sql>-->
+<!--            INSERT INTO "users".users (id, username, password, role_id, active, created_at, updated_at) VALUES-->
+<!--            (1, 'admin', 'admin', 2, true, NOW() AT TIME ZONE 'utc' - (random() * interval '365 days')),-->
+<!--            (2, 'sashapilipuk@yandex.by', 'Qwe', 1, true, NOW() AT TIME ZONE 'utc' - (random() * interval '365 days'));-->
+<!--        </sql>-->
+
+<!--    </changeSet>-->
+<!--</databaseChangeLog>-->
