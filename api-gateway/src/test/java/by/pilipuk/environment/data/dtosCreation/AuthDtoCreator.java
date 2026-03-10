@@ -1,9 +1,9 @@
 package by.pilipuk.environment.data.dtosCreation;
 
-import by.pilipuk.business.security.JwtTokenProvider;
-import by.pilipuk.business.security.UserDetailsDto;
-import by.pilipuk.dto.AuthRequest;
-import by.pilipuk.dto.AuthResponse;
+import by.pilipuk.gateway.business.security.JwtTokenProvider;
+import by.pilipuk.gateway.business.security.UserDetailsDto;
+import by.pilipuk.gateway.dto.AuthRequest;
+import by.pilipuk.gateway.dto.AuthResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

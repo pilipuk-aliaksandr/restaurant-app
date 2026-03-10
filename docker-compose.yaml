@@ -94,6 +94,12 @@ services:
         --defaultSchemaName=users
       update
 
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+
   kafka-1:
     image: apache/kafka:4.0.1
     container_name: kafka-1
