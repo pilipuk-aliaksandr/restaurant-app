@@ -20,6 +20,11 @@ spring:
         jdbc:
           time_zone: UTC
 
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
   kafka:
     # Указываем адреса всех брокеров kafka
     bootstrap-servers: localhost:9092,localhost:9093,localhost:9094

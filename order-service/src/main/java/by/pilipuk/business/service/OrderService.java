@@ -12,6 +12,8 @@ import by.pilipuk.business.repository.OrderRepository;
 import by.pilipuk.business.repository.OutboxEventRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tools.jackson.databind.ObjectMapper;
@@ -44,6 +46,7 @@ public class OrderService {
         return orderMapper.toDto(savedOrder);
     }
 
+    @Cacheable(value = "orders", key = "#id")
     public OrderDto findOrderById(Long id) {
         return orderMapper.toDto(orderRepository.findByIdOrElseThrow(id));
     }
@@ -51,12 +54,11 @@ public class OrderService {
     public List<OrderDto> findOrders(OrderRequestDto orderRequestDto) {
         var spec = orderSpecificationMapper.orderSpecification(orderRequestDto);
 
-        var ordersDtoList = orderRepository.findAll(spec).stream()
+        return orderRepository.findAll(spec).stream()
                 .map(orderMapper::toDto).toList();
-
-        return ordersDtoList;
     }
 
+    @CacheEvict(value = "orders", key = "#orderReadyEvent.orderId")
     public void acceptCompletedOrdersFromKafka(OrderReadyEvent orderReadyEvent) {
         Order order = orderRepository.findByIdOrElseThrow(orderReadyEvent.getOrderId());
         order.setStatus(Status.READY);
