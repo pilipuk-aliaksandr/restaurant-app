@@ -1,7 +1,7 @@
 package by.pilipuk.business.service;
 
 import by.pilipuk.business.repository.OutboxEventRepository;
-import by.pilipuk.core.exception.base.ApplicationException;
+import by.pilipuk.core.exception.ApplicationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;

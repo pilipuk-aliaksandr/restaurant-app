@@ -1,4 +1,4 @@
-package by.pilipuk.core.exception;
+package by.pilipuk.core.exception.base;
 
 import by.pilipuk.model.dto.ExceptionContext;
 import lombok.Getter;
