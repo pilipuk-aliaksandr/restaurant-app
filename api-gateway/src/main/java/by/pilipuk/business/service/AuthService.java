@@ -34,6 +34,7 @@ public class AuthService {
         authResponse.setUsername(userDetailsDto.getUsername());
         authResponse.setAccessToken(jwtTokenProvider.generateAccessToken(userDetailsDto));
         authResponse.setRefreshToken(jwtTokenProvider.generateRefreshToken(userDetailsDto));
+
         return authResponse;
     }
 

@@ -1,5 +1,6 @@
 package by.pilipuk.core.exception;
 
+import by.pilipuk.core.exception.base.BaseApplicationException;
 import by.pilipuk.model.dto.ExceptionContext;
 import org.slf4j.event.Level;
 
