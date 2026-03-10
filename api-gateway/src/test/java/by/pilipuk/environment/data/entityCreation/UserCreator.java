@@ -1,8 +1,8 @@
 package by.pilipuk.environment.data.entityCreation;
 
-import by.pilipuk.business.repository.UserRepository;
-import by.pilipuk.business.repository.UserRoleRepository;
-import by.pilipuk.model.entity.User;
+import by.pilipuk.gateway.business.repository.UserRepository;
+import by.pilipuk.gateway.business.repository.UserRoleRepository;
+import by.pilipuk.gateway.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

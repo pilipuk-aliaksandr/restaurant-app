@@ -10,7 +10,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import tools.jackson.databind.ObjectMapper;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -38,7 +37,6 @@ public abstract class BaseControllerTest {
     protected void performPostRequest(String url, Object postDto, Object expectedEntity) {
         try {
             mockMvc.perform(MockMvcRequestBuilders.post(url)
-                            .with(csrf())
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(toJson(postDto)))
                     .andExpectAll(
@@ -78,7 +76,6 @@ public abstract class BaseControllerTest {
     protected void performPostSearchRequest(String url, Object requestBody, Object expectedDto) {
         try {
             var requestBuilder = MockMvcRequestBuilders.post(url)
-                    .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(toJson(requestBody));
 
@@ -96,7 +93,6 @@ public abstract class BaseControllerTest {
     protected void performAuthRequest(String url, Object authRequest, Object expectedResponse) {
         try {
             mockMvc.perform(MockMvcRequestBuilders.post(url)
-                            .with(csrf())
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(toJson(authRequest)))
                     .andExpectAll(

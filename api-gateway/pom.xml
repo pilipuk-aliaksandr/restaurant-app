@@ -31,8 +31,8 @@
                         <configuration>
                             <inputSpec>${project.basedir}/src/main/resources/userApiSpec.yaml</inputSpec>
                             <generatorName>spring</generatorName>
-                            <apiPackage>by.pilipuk.api</apiPackage>
-                            <modelPackage>by.pilipuk.dto</modelPackage>
+                            <apiPackage>by.pilipuk.gateway.api</apiPackage>
+                            <modelPackage>by.pilipuk.gateway.dto</modelPackage>
                             <configOptions>
                                 <interfaceOnly>true</interfaceOnly>
                                 <useJakartaEe>true</useJakartaEe>

@@ -13,14 +13,14 @@ paths:
         - Kitchen
       summary: Get all kitchen orders with filter criteria
       description: Return all kitchen orders details with filter criteria
-      operationId: findKitchens
+      operationId: findOrders
       requestBody:
         description: The search criteria
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/KitchenRequestDto'
+              $ref: '#/components/schemas/OrderRequestDto'
       responses:
         200:
           description: Success
@@ -29,7 +29,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/KitchenDto'
+                  $ref: '#/components/schemas/OrderDto'
 
   /v1/kitchen/orders/{id}:
     get:
@@ -50,14 +50,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/KitchenDto'
+                $ref: '#/components/schemas/OrderDto'
         '404':
           description: Kitchen Order not found
 
 components:
   schemas:
 
-    KitchenWriteDto:
+    OrderWriteDto:
       type: object
       required:
         - orderId
@@ -73,9 +73,9 @@ components:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/KitchenItemsWriteDto'
+            $ref: '#/components/schemas/OrderItemsWriteDto'
 
-    KitchenItemsWriteDto:
+    OrderItemsWriteDto:
       type: object
       required:
         - itemName
@@ -83,7 +83,7 @@ components:
         itemName:
           type: string
 
-    KitchenDto:
+    OrderDto:
       type: object
       properties:
         id:
@@ -98,15 +98,15 @@ components:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/KitchenItemsDto'
+            $ref: '#/components/schemas/OrderItemsDto'
 
-    KitchenItemsDto:
+    OrderItemsDto:
       type: object
       properties:
         id:
           type: integer
           format: int64
-        kitchenId:
+        OrderId:
           type: integer
           format: int64
         itemName:
@@ -114,7 +114,7 @@ components:
         cooked:
           type: boolean
 
-    KitchenRequestDto:
+    OrderRequestDto:
       description: Request dto provided in the request body to filter orders
       type: object
       properties:
