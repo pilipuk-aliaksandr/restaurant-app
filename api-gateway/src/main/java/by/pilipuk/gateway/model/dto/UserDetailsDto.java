@@ -1,4 +1,4 @@
-package by.pilipuk.gateway.business.security;
+package by.pilipuk.gateway.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

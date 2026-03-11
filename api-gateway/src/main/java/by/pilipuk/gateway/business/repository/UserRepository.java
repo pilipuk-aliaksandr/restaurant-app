@@ -8,6 +8,7 @@ import java.util.Optional;
 import static by.pilipuk.gateway.core.exception.ApplicationExceptionCode.NOT_FOUND_BY_ID;
 import static by.pilipuk.gateway.core.exception.ApplicationExceptionCode.NOT_FOUND_BY_USERNAME;
 
+//@Repository - удалить
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
@@ -18,7 +19,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
                 .orElseThrow(() -> ApplicationException.create(NOT_FOUND_BY_USERNAME, username));
     }
 
-    default User findByIdOrElseThrow(Long id) {
+    default User findByIdOrThrow(Long id) {
         return findById(id)
                 .orElseThrow(() -> ApplicationException.create(NOT_FOUND_BY_ID, id));
     }

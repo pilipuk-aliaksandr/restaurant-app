@@ -1,10 +1,10 @@
 package by.pilipuk.gateway.business.mapper;
 
 import by.pilipuk.gateway.dto.UserWriteDto;
-import by.pilipuk.gateway.model.entity.Role;
+import by.pilipuk.gateway.model.enums.Role;
 import by.pilipuk.gateway.model.entity.User;
 import by.pilipuk.gateway.model.entity.UserRole;
-import by.pilipuk.gateway.business.security.UserDetailsDto;
+import by.pilipuk.gateway.model.dto.UserDetailsDto;
 import org.mapstruct.*;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

@@ -1,6 +1,6 @@
 package by.pilipuk.environment.service;
 
-import by.pilipuk.gateway.business.security.UserDetailsDto;
+import by.pilipuk.gateway.model.dto.UserDetailsDto;
 import by.pilipuk.gateway.dto.AuthRequest;
 import by.pilipuk.gateway.dto.AuthResponse;
 import by.pilipuk.gateway.dto.UserWriteDto;

@@ -1,7 +1,7 @@
 package by.pilipuk.gateway.core.config;
 
-import by.pilipuk.gateway.business.security.JwtTokenFilter;
-import by.pilipuk.gateway.business.security.JwtTokenProvider;
+import by.pilipuk.gateway.core.security.JwtTokenFilter;
+import by.pilipuk.gateway.core.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,16 +37,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) {
         http
-                .csrf(crsfc -> crsfc.disable())
+                .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configure(http))
-                .httpBasic(httpBasic -> httpBasic.disable())
+                .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(exception -> exception
-                        .authenticationEntryPoint((request, response, authException) -> {
+                        .authenticationEntryPoint((request, response, _) -> {
                             response.setStatus(HttpStatus.UNAUTHORIZED.value());
                             response.getWriter().write("Unauthorized");
                         })
-                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                        .accessDeniedHandler((request, response, _) -> {
                             response.setStatus(HttpStatus.FORBIDDEN.value());
                             response.getWriter().write("Forbidden");
                         })
@@ -55,7 +56,7 @@ public class SecurityConfig {
                         .requestMatchers("/v1/orders/**", "/v1/kitchen/**").authenticated()
                         .anyRequest().authenticated()
                 )
-                .anonymous(anonymous -> anonymous.disable())
+                .anonymous(AbstractHttpConfigurer::disable)
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

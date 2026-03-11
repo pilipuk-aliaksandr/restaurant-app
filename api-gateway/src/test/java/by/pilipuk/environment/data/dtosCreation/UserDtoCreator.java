@@ -1,7 +1,7 @@
 package by.pilipuk.environment.data.dtosCreation;
 
 import by.pilipuk.gateway.business.mapper.UserMapper;
-import by.pilipuk.gateway.business.security.UserDetailsDto;
+import by.pilipuk.gateway.model.dto.UserDetailsDto;
 import by.pilipuk.gateway.dto.UserWriteDto;
 import by.pilipuk.gateway.model.entity.User;
 import lombok.RequiredArgsConstructor;

@@ -16,6 +16,7 @@ import org.springframework.util.CollectionUtils;
 import java.time.LocalDateTime;
 import java.util.List;
 
+//повыноси
 @Mapper(
         componentModel = "spring",
         uses = {OrderItemMapper.class},
@@ -30,7 +31,7 @@ public abstract class OrderMapper {
     public abstract Order toEntity(OrderWriteDto orderOrderWriteDto);
 
     @AfterMapping
-    protected void getItems(@MappingTarget Order order) {
+    protected void fillOrder(@MappingTarget Order order) {
         if (order.getItems() != null) {
             order.getItems().forEach(item -> item.setOrder(order));
         }
@@ -38,37 +39,20 @@ public abstract class OrderMapper {
 
     public abstract OrderDto toDto(Order order);
 
-    @Mapping(target = "orderId", source = "orderId")
-    @Mapping(target = "items", ignore = true)
     public abstract Order toEntity(OrderCreatedEvent orderCreatedEvent);
 
+    public abstract OrderDto toDto(Order order, List<OrderItem> items);
+
+    @Mapping(target = "name", source = "name")
+    public abstract OrderItem toEntity(String name);
+
     @AfterMapping
-    protected void fillItems(OrderCreatedEvent event, @MappingTarget Order order) {
-        if (!CollectionUtils.isEmpty(event.getItems())) {
-            List<OrderItem> orderItems = event.getItems().stream()
-                    .map(name -> {
-                        OrderItem item = new OrderItem();
-                        item.setName(name);
-                        item.setOrder(order);
-                        return item;
-                    })
-                    .toList();
-            order.setItems(orderItems);
-        }
+    protected void fillItems(Order order) {
+        order.getItems().forEach(item -> item.setOrder(order));
     }
 
     @Mapping(target = "items", ignore = true)
     public abstract OrderReadyEvent toOrderReadyEvent(Order order);
-
-    @AfterMapping
-    protected void mapItemsToNames(Order order, @MappingTarget OrderReadyEvent event) {
-        if (!CollectionUtils.isEmpty(order.getItems())) {
-            List<String> itemNames = order.getItems().stream()
-                    .map(OrderItem::getName)
-                    .toList();
-            event.setItems(itemNames);
-        }
-    }
 
     @Mapping(target = "keyOrderId", source = "order.id")
     @Mapping(target = "topic", constant = "ready_orders")

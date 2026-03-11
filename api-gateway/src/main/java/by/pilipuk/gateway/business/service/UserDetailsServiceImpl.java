@@ -1,6 +1,6 @@
-package by.pilipuk.gateway.business.security;
+package by.pilipuk.gateway.business.service;
 
-import by.pilipuk.gateway.model.entity.User;
+import by.pilipuk.gateway.model.dto.UserDetailsDto;
 import by.pilipuk.gateway.business.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,16 +19,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository
-                .findByUsernameIgnoreCase(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not founded"));
+        var user = userRepository.findByUsernameIgnoreCaseOrElseThrow(username);
 
-        List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(user.getUserRole().getRole().name()));
+        var authorities = List.of(new SimpleGrantedAuthority(user.getUserRole().getRole().name()));
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
-                user.getPassword(),
-                authorities
-        );
+        return new UserDetailsDto(user.getId(), user.getUsername(), user.getPassword(), authorities);
     }
 }

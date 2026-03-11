@@ -1,6 +1,6 @@
 package by.pilipuk.spec.entrypoint;
 
-import by.pilipuk.gateway.business.security.JwtTokenProvider;
+import by.pilipuk.gateway.core.security.JwtTokenProvider;
 import by.pilipuk.environment.service.AuthTestService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

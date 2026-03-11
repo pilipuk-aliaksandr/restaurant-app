@@ -14,13 +14,11 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
-
     private final UserMapper userMapper;
-
     private final PasswordEncoder passwordEncoder;
-
     private final UserRoleRepository userRoleRepository;
 
+    //24 и 25 в маппер
     public void saveUser(UserWriteDto userWriteDto) {
         User user = userMapper.toUser(userWriteDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));

@@ -1,4 +1,4 @@
-package by.pilipuk.gateway.model.entity;
+package by.pilipuk.gateway.model.enums;
 
 public enum Role {
     ROLE_USER,

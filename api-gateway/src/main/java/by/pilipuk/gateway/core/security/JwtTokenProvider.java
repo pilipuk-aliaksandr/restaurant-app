@@ -1,9 +1,11 @@
-package by.pilipuk.gateway.business.security;
+package by.pilipuk.gateway.core.security;
 
+import by.pilipuk.gateway.business.service.UserDetailsServiceImpl;
 import by.pilipuk.gateway.dto.AuthResponse;
 import by.pilipuk.gateway.business.mapper.UserMapper;
 import by.pilipuk.gateway.business.repository.UserRepository;
-import by.pilipuk.gateway.business.security.prop.JwtProperties;
+import by.pilipuk.gateway.model.dto.UserDetailsDto;
+import by.pilipuk.gateway.model.property.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -77,7 +79,7 @@ public class JwtTokenProvider {
         }
         Long userId = Long.valueOf(getId(refreshToken));
 
-        UserDetailsDto userDetailsDto = userMapper.toUserDetailsDto(userRepository.findByIdOrElseThrow(userId));
+        UserDetailsDto userDetailsDto = userMapper.toUserDetailsDto(userRepository.findByIdOrThrow(userId));
 
         authResponse.setId(userId);
         authResponse.setUsername(userDetailsDto.getUsername());

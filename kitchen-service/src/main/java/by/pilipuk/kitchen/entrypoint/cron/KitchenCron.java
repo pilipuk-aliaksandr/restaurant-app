@@ -1,4 +1,4 @@
-package by.pilipuk.kitchen.business.service;
+package by.pilipuk.kitchen.entrypoint.cron;
 
 import by.pilipuk.kitchen.model.entity.Order;
 import by.pilipuk.kitchen.model.entity.OrderItem;
@@ -21,7 +21,7 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class OrderCookerService {
+public class KitchenCron {
 
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
@@ -35,32 +35,34 @@ public class OrderCookerService {
     @CacheEvict(value = "kitchen", key = "#result", condition = "#result != null")
     public void cookOneItem() {
         itemRepository.findFirstByCookedFalseOrderByCreatedAtAsc()
-                .ifPresent(item -> {
-                    item.setCooked(true);
-                    itemRepository.save(item);
+                .ifPresent(this::process);
+    }
 
-                    log.info("Item: {} for order {} is cooked {}", item.getName(), item.getOrder().getOrderId(), LocalDateTime.now());
+    private void process(OrderItem item) {
+        item.setCooked(true);
+        itemRepository.save(item);
 
-                    Order order = item.getOrder();
-                    if (order.getStatus() == Status.ACCEPTED) {
-                        order.setStatus(Status.COOKING);
-                    }
+        log.info("Item: {} for order {} is cooked {}", item.getName(), item.getOrder().getOrderId(), LocalDateTime.now());
 
-                    Objects.requireNonNull(cacheManager.getCache("kitchen")).evict(order.getId());
+        Order order = item.getOrder();
+        if (order.getStatus() == Status.ACCEPTED) {
+            order.setStatus(Status.COOKING);
+        }
 
-                    boolean allDone = order.getItems().stream().allMatch(OrderItem::isCooked);
-                    if (allDone) {
-                        order.setStatus(Status.COMPLETED);
-                        var savedKitchenOrder = orderRepository.save(order);
+        Objects.requireNonNull(cacheManager.getCache("kitchen")).evict(order.getId());
 
-                        log.info("Order: {} is cooked {}", order.getOrderId(), order.getUpdatedAt());
+        boolean allDone = order.getItems().stream().allMatch(OrderItem::isCooked);
+        if (allDone) {
+            order.setStatus(Status.COMPLETED);
+            var savedKitchenOrder = orderRepository.save(order);
 
-                        Objects.requireNonNull(cacheManager.getCache("kitchen")).evict(order.getId());
+            log.info("Order: {} is cooked {}", order.getOrderId(), order.getUpdatedAt());
 
-                        String jsonEvent = objectMapper.writeValueAsString(orderMapper.toOrderReadyEvent(savedKitchenOrder));
+            Objects.requireNonNull(cacheManager.getCache("kitchen")).evict(order.getId());
 
-                        outboxEventRepository.save(orderMapper.toOutboxEvent(savedKitchenOrder, jsonEvent));
-                    }
-                });
+            String jsonEvent = objectMapper.writeValueAsString(orderMapper.toOrderReadyEvent(savedKitchenOrder));
+
+            outboxEventRepository.save(orderMapper.toOutboxEvent(savedKitchenOrder, jsonEvent));
+        }
     }
 }

@@ -1,4 +1,4 @@
-package by.pilipuk.gateway.business.security;
+package by.pilipuk.gateway.core.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

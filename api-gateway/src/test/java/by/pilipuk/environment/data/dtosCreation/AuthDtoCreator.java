@@ -1,7 +1,7 @@
 package by.pilipuk.environment.data.dtosCreation;
 
-import by.pilipuk.gateway.business.security.JwtTokenProvider;
-import by.pilipuk.gateway.business.security.UserDetailsDto;
+import by.pilipuk.gateway.core.security.JwtTokenProvider;
+import by.pilipuk.gateway.model.dto.UserDetailsDto;
 import by.pilipuk.gateway.dto.AuthRequest;
 import by.pilipuk.gateway.dto.AuthResponse;
 import lombok.RequiredArgsConstructor;

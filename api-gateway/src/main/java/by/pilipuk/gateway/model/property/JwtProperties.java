@@ -1,4 +1,4 @@
-package by.pilipuk.gateway.business.security.prop;
+package by.pilipuk.gateway.model.property;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -1,4 +1,4 @@
-package by.pilipuk.kitchen.entrypoint;
+package by.pilipuk.kitchen.entrypoint.controller;
 
 import by.pilipuk.kitchen.api.KitchenApi;
 import by.pilipuk.kitchen.dto.OrderDto;
