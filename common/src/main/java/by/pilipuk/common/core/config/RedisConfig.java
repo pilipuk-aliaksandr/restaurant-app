@@ -1,6 +1,5 @@
 package by.pilipuk.common.core.config;
 
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.BatchStrategies;
@@ -13,7 +12,6 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import java.time.Duration;
 
 @Configuration
-@EnableCaching
 public class RedisConfig {
 
     @Bean

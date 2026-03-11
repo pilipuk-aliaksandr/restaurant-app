@@ -10,7 +10,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.ArgumentMatchers.any;
-
+ 
 @SpringBootTest
 @AutoConfigureMockMvc
 @DisplayName("Test all methods from AuthController.class")
