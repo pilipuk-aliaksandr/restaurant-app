@@ -156,6 +156,10 @@ public abstract class ApplicationExceptionMapper {
         ExceptionContext context = ExceptionContext.create("INTERNAL_SERVER_ERROR");
         context.setMessage(ex.getMessage());
 
-        return new ExceptionDto("UNEXPECTED_EXCEPTION", List.of(context), ex.getCause().toString());
+        String exCause = (ex.getCause() != null)
+                ? ex.getCause().toString()
+                : null;
+
+        return new ExceptionDto("UNEXPECTED_EXCEPTION", List.of(context), exCause);
     }
 }
