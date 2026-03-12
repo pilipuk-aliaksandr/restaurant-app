@@ -14,18 +14,10 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
-
     private final UserMapper userMapper;
 
-    private final PasswordEncoder passwordEncoder;
-
-    private final UserRoleRepository userRoleRepository;
-
     public void saveUser(UserWriteDto userWriteDto) {
-        User user = userMapper.toUser(userWriteDto);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setUserRole(userRoleRepository.findById(1L).orElseThrow()); // Creating new admins is only possible by using Liquibase
+        var user = userMapper.toUser(userWriteDto);
         userRepository.save(user);
     }
-
 }

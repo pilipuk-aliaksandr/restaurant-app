@@ -1,34 +1,35 @@
 package by.pilipuk.gateway.business.mapper;
 
+import by.pilipuk.gateway.business.repository.UserRoleRepository;
 import by.pilipuk.gateway.dto.UserWriteDto;
-import by.pilipuk.gateway.model.entity.Role;
 import by.pilipuk.gateway.model.entity.User;
 import by.pilipuk.gateway.model.entity.UserRole;
-import by.pilipuk.gateway.business.security.UserDetailsDto;
-import org.mapstruct.*;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import java.util.List;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Mapper(componentModel = "spring")
 public abstract class UserMapper {
 
-    @Mapping(target = "authorities", source = ".", qualifiedByName = "mapAuthorities")
-    public abstract UserDetailsDto toUserDetailsDto(User user);
+    @Autowired
+    protected PasswordEncoder passwordEncoder;
 
+    @Autowired
+    protected UserRoleRepository userRoleRepository;
 
-    @Named("mapAuthorities")
-    protected List<SimpleGrantedAuthority> mapAuthorities(User user) {
-        return List.of(new SimpleGrantedAuthority(user.getUserRole().getRole().name()));
-    }
-
-    @Mapping(target = "userRole", ignore = true)
+    @Mapping(target = "password", source = "password", qualifiedByName = "encodePassword")
+    @Mapping(target = "userRole", source = "userWriteDto", qualifiedByName = "linkDefaultRole")
     public abstract User toUser(UserWriteDto userWriteDto);
 
-    @AfterMapping
-    protected void fillUserRole(UserWriteDto dto, @MappingTarget User user) {
-        UserRole role = new UserRole();
-        role.setRole(Role.ROLE_USER);
-        user.setUserRole(role);
+    @Named("encodePassword")
+    protected String encodePassword(String password) {
+        return passwordEncoder.encode(password);
+    }
+
+    @Named("linkDefaultRole")
+    protected UserRole linkDefaultRole(UserWriteDto dto) {
+        return userRoleRepository.findById(1L).orElseThrow();
     }
 }

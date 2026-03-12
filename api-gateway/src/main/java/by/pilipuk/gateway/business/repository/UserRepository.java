@@ -3,12 +3,10 @@ package by.pilipuk.gateway.business.repository;
 import by.pilipuk.gateway.model.entity.User;
 import by.pilipuk.gateway.core.exception.ApplicationException;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import java.util.Optional;
 import static by.pilipuk.gateway.core.exception.ApplicationExceptionCode.NOT_FOUND_BY_ID;
 import static by.pilipuk.gateway.core.exception.ApplicationExceptionCode.NOT_FOUND_BY_USERNAME;
 
-@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByUsernameIgnoreCase(String username);
