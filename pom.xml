@@ -11,8 +11,9 @@
     <modules>
         <module>order-service</module>
         <module>kitchen-service</module>
-        <module>common</module>
         <module>api-gateway</module>
+        <module>common/common-core</module>
+        <module>common/common-kafka</module>
     </modules>
 
     <parent>

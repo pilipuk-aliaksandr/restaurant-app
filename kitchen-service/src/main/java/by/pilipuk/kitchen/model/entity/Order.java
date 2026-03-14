@@ -1,6 +1,6 @@
 package by.pilipuk.kitchen.model.entity;
 
-import by.pilipuk.common.model.entity.baseEntity.BaseEntity;
+import by.pilipuk.commonCore.model.entity.baseEntity.BaseEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

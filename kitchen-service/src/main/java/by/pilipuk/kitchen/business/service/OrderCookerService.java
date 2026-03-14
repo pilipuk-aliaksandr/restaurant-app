@@ -6,7 +6,7 @@ import by.pilipuk.kitchen.model.entity.Status;
 import by.pilipuk.kitchen.business.mapper.OrderMapper;
 import by.pilipuk.kitchen.business.repository.OrderItemRepository;
 import by.pilipuk.kitchen.business.repository.OrderRepository;
-import by.pilipuk.common.business.repository.OutboxEventRepository;
+import by.pilipuk.commonKafka.business.repository.OutboxEventRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.CacheManager;

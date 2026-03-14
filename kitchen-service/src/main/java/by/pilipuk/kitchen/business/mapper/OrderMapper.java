@@ -2,11 +2,11 @@ package by.pilipuk.kitchen.business.mapper;
 
 import by.pilipuk.kitchen.dto.OrderDto;
 import by.pilipuk.kitchen.dto.OrderWriteDto;
-import by.pilipuk.common.model.dto.OrderCreatedEvent;
-import by.pilipuk.common.model.dto.OrderReadyEvent;
+import by.pilipuk.commonKafka.model.dto.OrderCreatedEvent;
+import by.pilipuk.commonKafka.model.dto.OrderReadyEvent;
 import by.pilipuk.kitchen.model.entity.Order;
 import by.pilipuk.kitchen.model.entity.OrderItem;
-import by.pilipuk.common.model.entity.OutboxEvent;
+import by.pilipuk.commonKafka.model.entity.OutboxEvent;
 import by.pilipuk.kitchen.model.entity.Status;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;

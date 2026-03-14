@@ -97,16 +97,24 @@
     <dependencies>
         <dependency>
             <groupId>by.pilipuk</groupId>
-            <artifactId>common</artifactId>
-            <version>${project.version}</version>
+            <artifactId>common-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>by.pilipuk</groupId>
-            <artifactId>common</artifactId>
-            <version>${project.version}</version>
+            <artifactId>common-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
             <type>test-jar</type>
             <scope>test</scope>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>by.pilipuk</groupId>
+            <artifactId>common-kafka</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>

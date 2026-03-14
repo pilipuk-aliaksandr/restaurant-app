@@ -1,6 +1,6 @@
 package by.pilipuk.kitchen.entrypoint;
 
-import by.pilipuk.common.model.dto.OrderCreatedEvent;
+import by.pilipuk.commonKafka.model.dto.OrderCreatedEvent;
 import by.pilipuk.kitchen.business.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;

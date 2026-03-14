@@ -1,7 +1,7 @@
 package by.pilipuk.gateway.core.exception;
 
-import by.pilipuk.common.core.exception.base.BaseApplicationException;
-import by.pilipuk.common.model.dto.ExceptionContext;
+import by.pilipuk.commonCore.core.exception.base.BaseApplicationException;
+import by.pilipuk.commonCore.model.dto.ExceptionContext;
 import org.slf4j.event.Level;
 
 public class ApplicationException extends BaseApplicationException {
