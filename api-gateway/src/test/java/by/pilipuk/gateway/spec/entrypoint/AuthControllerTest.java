@@ -2,7 +2,7 @@ package by.pilipuk.gateway.spec.entrypoint;
 
 import by.pilipuk.gateway.core.security.JwtTokenProvider;
 import by.pilipuk.gateway.environment.service.AuthTestService;
-import by.pilipuk.common.spec.entrypoint.BaseControllerTest;
+import by.pilipuk.commonCore.spec.entrypoint.BaseControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

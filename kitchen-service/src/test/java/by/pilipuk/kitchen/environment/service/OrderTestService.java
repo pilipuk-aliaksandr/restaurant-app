@@ -8,7 +8,7 @@ import by.pilipuk.kitchen.environment.data.entityCreation.EntityCreator;
 import by.pilipuk.kitchen.environment.data.eventCreation.EventCreator;
 import by.pilipuk.kitchen.dto.OrderRequestDto;
 import by.pilipuk.kitchen.model.entity.Order;
-import by.pilipuk.common.model.dto.OrderCreatedEvent;
+import by.pilipuk.commonKafka.model.dto.OrderCreatedEvent;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;

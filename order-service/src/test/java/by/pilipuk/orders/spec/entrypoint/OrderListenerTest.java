@@ -36,7 +36,7 @@ class OrderListenerTest extends BaseControllerTest {
 
         // when
         kafkaTemplate.send("ready_orders", jsonEvent);
-        Thread.sleep(3000);
+        Thread.sleep(5000);
 
         var savedOrderDto = orderTestService.getOrderDtoFromDB();
 
