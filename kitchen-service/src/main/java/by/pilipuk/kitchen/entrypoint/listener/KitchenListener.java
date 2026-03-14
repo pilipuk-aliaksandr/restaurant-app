@@ -1,4 +1,4 @@
-package by.pilipuk.kitchen.entrypoint;
+package by.pilipuk.kitchen.entrypoint.listener;
 
 import by.pilipuk.commonKafka.model.dto.OrderCreatedEvent;
 import by.pilipuk.kitchen.business.service.OrderService;

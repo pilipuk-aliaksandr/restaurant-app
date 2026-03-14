@@ -1,7 +1,6 @@
 package by.pilipuk.kitchen.business.mapper;
 
 import by.pilipuk.kitchen.dto.OrderDto;
-import by.pilipuk.kitchen.dto.OrderWriteDto;
 import by.pilipuk.commonKafka.model.dto.OrderCreatedEvent;
 import by.pilipuk.commonKafka.model.dto.OrderReadyEvent;
 import by.pilipuk.kitchen.model.entity.Order;
@@ -23,22 +22,8 @@ import java.util.List;
 )
 public abstract class OrderMapper {
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "orderId", source = "orderId")
-    @Mapping(target = "status", constant = "ACCEPTED")
-    @Mapping(target = "items", source = "items")
-    public abstract Order toEntity(OrderWriteDto orderOrderWriteDto);
-
-    @AfterMapping
-    protected void getItems(@MappingTarget Order order) {
-        if (order.getItems() != null) {
-            order.getItems().forEach(item -> item.setOrder(order));
-        }
-    }
-
     public abstract OrderDto toDto(Order order);
 
-    @Mapping(target = "orderId", source = "orderId")
     @Mapping(target = "items", ignore = true)
     public abstract Order toEntity(OrderCreatedEvent orderCreatedEvent);
 

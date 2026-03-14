@@ -57,32 +57,6 @@ paths:
 components:
   schemas:
 
-    OrderWriteDto:
-      type: object
-      required:
-        - orderId
-        - status
-        - items
-      properties:
-        orderId:
-          type: integer
-          format: int64
-        status:
-          type: string
-          enum: [ ACCEPTED, COOKING, COMPLETED ]
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderItemsWriteDto'
-
-    OrderItemsWriteDto:
-      type: object
-      required:
-        - itemName
-      properties:
-        itemName:
-          type: string
-
     OrderDto:
       type: object
       properties:
