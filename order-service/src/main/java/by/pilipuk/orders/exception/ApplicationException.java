@@ -4,16 +4,16 @@ import by.pilipuk.commonCore.core.exception.base.BaseApplicationException;
 import by.pilipuk.commonCore.model.dto.ExceptionContext;
 import org.slf4j.event.Level;
 
-public class OrderException extends BaseApplicationException {
+public class ApplicationException extends BaseApplicationException {
 
     private static final String CODE = "ORDER_APPLICATION_EXCEPTION";
 
-    private OrderException(Level logLevel, ExceptionContext exceptionContext) {
+    private ApplicationException(Level logLevel, ExceptionContext exceptionContext) {
         super(CODE, logLevel, exceptionContext, null);
     }
 
-    public static OrderException create(OrderExceptionCode code, Object param) {
-        return new OrderException(
+    public static ApplicationException create(ApplicationExceptionCode code, Object param) {
+        return new ApplicationException(
                 code.getLevel(),
                 ExceptionContext.create(code.name()).add(code.getKey(), param)
         );

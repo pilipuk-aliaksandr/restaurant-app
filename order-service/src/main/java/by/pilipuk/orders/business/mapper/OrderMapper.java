@@ -23,8 +23,6 @@ public abstract class OrderMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "status", constant = "CREATED")
-    @Mapping(target = "tableNumber", source = "tableNumber")
-    @Mapping(target = "items", source = "items")
     public abstract Order toEntity(OrderWriteDto orderWriteDto);
 
     @AfterMapping
