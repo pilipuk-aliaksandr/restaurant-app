@@ -1,6 +1,6 @@
 package by.pilipuk.gateway.model.entity;
 
-import by.pilipuk.common.model.entity.baseEntity.BaseEntity;
+import by.pilipuk.commonCore.model.entity.baseEntity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

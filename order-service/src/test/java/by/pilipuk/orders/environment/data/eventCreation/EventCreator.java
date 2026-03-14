@@ -1,7 +1,7 @@
 package by.pilipuk.orders.environment.data.eventCreation;
 
-import by.pilipuk.common.model.dto.OrderCreatedEvent;
-import by.pilipuk.common.model.dto.OrderReadyEvent;
+import by.pilipuk.commonKafka.model.dto.OrderCreatedEvent;
+import by.pilipuk.commonKafka.model.dto.OrderReadyEvent;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

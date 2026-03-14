@@ -1,11 +1,11 @@
 package by.pilipuk.orders.business.mapper;
 
-import by.pilipuk.common.model.dto.OrderCreatedEvent;
+import by.pilipuk.commonKafka.model.dto.OrderCreatedEvent;
 import by.pilipuk.orders.dto.OrderDto;
 import by.pilipuk.orders.dto.OrderWriteDto;
 import by.pilipuk.orders.model.entity.Order;
 import by.pilipuk.orders.model.entity.OrderItem;
-import by.pilipuk.common.model.entity.OutboxEvent;
+import by.pilipuk.commonKafka.model.entity.OutboxEvent;
 import by.pilipuk.orders.model.entity.Status;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
@@ -23,8 +23,6 @@ public abstract class OrderMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "status", constant = "CREATED")
-    @Mapping(target = "tableNumber", source = "tableNumber")
-    @Mapping(target = "items", source = "items")
     public abstract Order toEntity(OrderWriteDto orderWriteDto);
 
     @AfterMapping

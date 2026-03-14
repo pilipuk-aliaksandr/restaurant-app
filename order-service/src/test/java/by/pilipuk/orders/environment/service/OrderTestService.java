@@ -8,7 +8,7 @@ import by.pilipuk.orders.dto.OrderWriteDto;
 import by.pilipuk.orders.environment.data.dtoCreation.DtosCreator;
 import by.pilipuk.orders.environment.data.entityCreation.EntityCreator;
 import by.pilipuk.orders.environment.data.eventCreation.EventCreator;
-import by.pilipuk.common.model.dto.OrderReadyEvent;
+import by.pilipuk.commonKafka.model.dto.OrderReadyEvent;
 import by.pilipuk.orders.model.entity.Order;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;

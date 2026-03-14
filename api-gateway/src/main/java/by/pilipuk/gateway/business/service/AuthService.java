@@ -1,12 +1,11 @@
 package by.pilipuk.gateway.business.service;
 
+import by.pilipuk.gateway.business.mapper.AuthMapper;
+import by.pilipuk.gateway.business.mapper.UserDetailsMapper;
 import by.pilipuk.gateway.dto.AuthRequest;
 import by.pilipuk.gateway.dto.AuthResponse;
-import by.pilipuk.gateway.model.entity.User;
-import by.pilipuk.gateway.business.mapper.UserMapper;
 import by.pilipuk.gateway.business.repository.UserRepository;
-import by.pilipuk.gateway.business.security.UserDetailsDto;
-import by.pilipuk.gateway.business.security.JwtTokenProvider;
+import by.pilipuk.gateway.core.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,23 +18,16 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
-    private final UserMapper userMapper;
+    private final UserDetailsMapper userDetailsMapper;
+    private final AuthMapper authMapper;
 
     public AuthResponse login(AuthRequest authRequest) {
-        AuthResponse authResponse = new AuthResponse();
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 
-        User user = userRepository.findByUsernameIgnoreCaseOrElseThrow(authRequest.getUsername());
+        var user = userRepository.findByUsernameIgnoreCaseOrElseThrow(authRequest.getUsername());
 
-        UserDetailsDto userDetailsDto = userMapper.toUserDetailsDto(user);
-
-        authResponse.setId(userDetailsDto.getId());
-        authResponse.setUsername(userDetailsDto.getUsername());
-        authResponse.setAccessToken(jwtTokenProvider.generateAccessToken(userDetailsDto));
-        authResponse.setRefreshToken(jwtTokenProvider.generateRefreshToken(userDetailsDto));
-
-        return authResponse;
+        return authMapper.toAuthResponse(userDetailsMapper.toUserDetailsDto(user));
     }
 
     public AuthResponse refresh(String refreshToken) {

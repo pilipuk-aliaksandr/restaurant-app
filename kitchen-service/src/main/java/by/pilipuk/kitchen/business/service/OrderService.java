@@ -3,7 +3,7 @@ package by.pilipuk.kitchen.business.service;
 import by.pilipuk.kitchen.business.mapper.OrderMapper;
 import by.pilipuk.kitchen.dto.OrderDto;
 import by.pilipuk.kitchen.dto.OrderRequestDto;
-import by.pilipuk.common.model.dto.OrderCreatedEvent;
+import by.pilipuk.commonKafka.model.dto.OrderCreatedEvent;
 import by.pilipuk.kitchen.model.entity.Order;
 import by.pilipuk.kitchen.model.entity.Status;
 import by.pilipuk.kitchen.business.mapper.OrderSpecificationMapper;

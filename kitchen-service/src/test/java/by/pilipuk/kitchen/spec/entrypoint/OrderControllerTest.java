@@ -1,9 +1,9 @@
 package by.pilipuk.kitchen.spec.entrypoint;
 
-import by.pilipuk.kitchen.business.service.OrderCookerService;
+import by.pilipuk.kitchen.entrypoint.cron.KitchenCron;
 import by.pilipuk.kitchen.environment.service.OrderTestService;
 import by.pilipuk.kitchen.dto.OrderDto;
-import by.pilipuk.spec.entrypoint.BaseControllerTest;
+import by.pilipuk.commonCore.spec.entrypoint.BaseControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ class OrderControllerTest extends BaseControllerTest {
     private OrderTestService orderTestService;
 
     @MockitoBean
-    private OrderCookerService orderCookerService;
+    private KitchenCron kitchenCron;
 
     @Test
     void findById() {
